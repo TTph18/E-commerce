@@ -1,4 +1,5 @@
 using E_commerce.Data;
+using E_commerce.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,7 @@ namespace E_commerce
 
             services.AddControllers();
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddTransient<ProductsService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_commerce", Version = "v1" });
