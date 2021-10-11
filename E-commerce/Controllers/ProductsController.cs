@@ -18,11 +18,34 @@ namespace E_commerce.Controllers
         {
             _productsService = productsService;
         }
-        
+        [HttpGet("get-all-products")]
+        public IActionResult GetAllProducts()
+        {
+            var allproducts = _productsService.GetAllProduct();
+            return Ok(allproducts);
+        }
+        [HttpGet("get-product-by-id/{id}")]
+        public IActionResult GetProductByID(int id)
+        {
+            var product = _productsService.GetProductByID(id);
+            return Ok(product);
+        }
         [HttpPost("add-product")]
         public IActionResult AddProduct([FromBody]ProductVM product)
         {
             _productsService.AddProduct(product);
+            return Ok();
+        }
+        [HttpPut("update-product-by-id/{id}")]
+        public IActionResult UpdateBookByID(int id, [FromBody] ProductVM product)
+        {
+            var updateproduct = _productsService.UpdateProductByID(id, product);
+            return Ok(updateproduct);
+        }
+        [HttpDelete("delete-product-by-id/{id}")]
+        public IActionResult DeleteBookByID(int id)
+        {
+            var deleteproduct = _productsService.DeleteProductByID(id);
             return Ok();
         }
     }
