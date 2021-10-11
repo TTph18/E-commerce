@@ -2,7 +2,7 @@
 
 namespace E_commerce.Migrations
 {
-    public partial class AddCategory : Migration
+    public partial class AddedCategory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +10,7 @@ namespace E_commerce.Migrations
                 name: "CategoryID",
                 table: "Products",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Categories",
@@ -37,7 +36,7 @@ namespace E_commerce.Migrations
                 column: "CategoryID",
                 principalTable: "Categories",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -9,7 +9,7 @@ namespace E_commerce.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //
+        //Navigation Propeties
         public List<Products> Product { get; set; }
     }
 }
