@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_commerce.Data.ViewModels
+namespace CustomerSide.Models
 {
-    public class ProductVM
+    public class ProductsViewModel
     {
         public string Name { get; set; }
         public string Description { get; set; }

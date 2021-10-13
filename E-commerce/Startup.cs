@@ -35,6 +35,7 @@ namespace E_commerce
             services.AddControllers();
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(ConnectionString));
             services.AddTransient<ProductsService>();
+            services.AddTransient<CategoriesService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_commerce", Version = "v1" });
@@ -62,7 +63,7 @@ namespace E_commerce
                 endpoints.MapControllers();
             });
 
-            AppDBInitializer.Seed(app);
+            //AppDBInitializer.Seed(app);
         }
     }
 }

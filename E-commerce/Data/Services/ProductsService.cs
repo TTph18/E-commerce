@@ -14,14 +14,15 @@ namespace E_commerce.Data.Services
         {
             _context = context;
         }
-        public void AddProduct(ProductVM product)
+        public void AddProductWithCategory(ProductVM product)
         {
             var _product = new Products()
             {
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                PictureUrl = product.PictureUrl
+                PictureUrl = product.PictureUrl,
+                CategoryID = product.CategoryID
             };
             _context.Products.Add(_product);
             _context.SaveChanges();
@@ -37,6 +38,7 @@ namespace E_commerce.Data.Services
                 _product.Description = product.Description;
                 _product.Price = product.Price;
                 _product.PictureUrl = product.PictureUrl;
+                _product.CategoryID = product.CategoryID;
                 _context.SaveChanges();
             }
             return _product;

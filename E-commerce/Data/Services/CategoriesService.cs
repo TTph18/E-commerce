@@ -14,7 +14,7 @@ namespace E_commerce.Data.Services
         {
             _context = context;
         }
-        public void AddProduct(CategoryVM category)
+        public void AddCategory(CategoryVM category)
         {
             var _category = new Categories()
             {
@@ -25,7 +25,7 @@ namespace E_commerce.Data.Services
         }
         public List<Categories> GetAllCategory() => _context.Categories.ToList();
         public Categories GetCategoryByID(int categoryID) => _context.Categories.FirstOrDefault(n => n.Id == categoryID);
-        public Categories UpdateProductByID(int categoryID, CategoryVM category)
+        public Categories UpdateCategoryByID(int categoryID, CategoryVM category)
         {
             var _category = _context.Categories.FirstOrDefault(n => n.Id == categoryID);
             if (_category != null)
@@ -35,7 +35,7 @@ namespace E_commerce.Data.Services
             }
             return _category;
         }
-        public Categories DeleteProductByID(int categoryID)
+        public Categories DeleteCategoryByID(int categoryID)
         {
             var _category = _context.Categories.FirstOrDefault(n => n.Id == categoryID);
             if (_category != null)
