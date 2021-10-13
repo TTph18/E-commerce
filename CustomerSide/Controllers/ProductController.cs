@@ -5,40 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomerSide.Models;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace CustomerSide.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index()
+        //Hosted web API REST Service base url
+        Uri Baseurl = new Uri( "http://localhost:44377/api"); 
+        HttpClient client;
+        public ProductController()
         {
-            IEnumerable<ProductsViewModel> products = null;
-
-            using (var client = new HttpClient())
+            client = new HttpClient();
+            client.BaseAddress = Baseurl;
+        }
+        public async Task<IActionResult> Index()
+        {
+            List<ProductsViewModel> reservationList = new List<ProductsViewModel>();
+            using (var httpClient = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:44377/api/");
-                //HTTP GET
-                var responseTask = client.GetAsync("Products");
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                using (var response = await httpClient.GetAsync("https://localhost:44377/api/Products/get-all-products"))
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<ProductsViewModel>>();
-                    readTask.Wait();
-
-                    products = readTask.Result;
-                }
-                else //web api sent error response 
-                {
-                    //log response status here..
-
-                    products = Enumerable.Empty<ProductsViewModel>();
-
-                    ModelState.AddModelError(string.Empty, "Server error.");
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    reservationList = JsonConvert.DeserializeObject<List<ProductsViewModel>>(apiResponse);
                 }
             }
-            return View(products);
+            return View(reservationList);
         }
     }
 }
