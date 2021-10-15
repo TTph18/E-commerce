@@ -15,21 +15,49 @@ namespace E_commerce.Data
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<AppDBContext>();
+                
+                if (!context.Categories.Any())
+                {
+                    context.Categories.AddRange(new Categories()
+                    {
+                        Name = "Rose"
+
+                    },
+                    new Categories()
+                    {
+                        Name = "Lily"
+                    },
+                    new Categories()
+                    {
+                        Name = "Camellia"
+                    });
+                    context.SaveChanges();
+                }
                 if (!context.Products.Any())
                 {
                     context.Products.AddRange(new Products()
                     {
-                        Name = "Camellia",
+                        Name = "Bonnie Marie",
                         Description = "First flower",
                         Price = 20.001f,
-                        PictureUrl = "https...."
+                        PictureUrl = "https....",
+                        CategoryID = 3
                     },
                     new Products()
                     {
-                        Name = "Lily",
+                        Name = "Gaze Lily",
                         Description = "Second flower",
                         Price = 2.001f,
-                        PictureUrl = "https...."
+                        PictureUrl = "https....",
+                        CategoryID = 2
+                    },
+                    new Products()
+                    {
+                        Name = "Crimson Rose",
+                        Description = "Second flower",
+                        Price = 2.001f,
+                        PictureUrl = "https....",
+                        CategoryID = 1
                     });
                     context.SaveChanges();
                 }

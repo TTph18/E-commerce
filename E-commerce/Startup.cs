@@ -63,7 +63,7 @@ namespace E_commerce
                 endpoints.MapControllers();
             });
 
-            //AppDBInitializer.Seed(app);
+            AppDBInitializer.Seed(app);
         }
     }
 }
