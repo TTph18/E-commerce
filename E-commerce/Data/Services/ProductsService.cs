@@ -3,6 +3,7 @@ using E_commerce.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using E_commerce.Data.Paging;
 using System.Threading.Tasks;
 
 namespace E_commerce.Data.Services
@@ -27,7 +28,32 @@ namespace E_commerce.Data.Services
             _context.Products.Add(_product);
             _context.SaveChanges();
         }
-        public List<Products> GetAllProduct() => _context.Products.ToList();
+        public List<Products> GetAllProduct(string sortBy, string filterString, int? pageNumber) 
+        { 
+            var allProducts = _context.Products.OrderBy(n=> n.Name).ToList();
+            var allCategories = _context.Categories.ToList();
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                switch(sortBy)
+                {
+                    case "name_desc":
+                        allProducts = allProducts.OrderByDescending(n => n.Name).ToList();
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            if (!string.IsNullOrEmpty(filterString))
+            {
+                var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                allProducts = allProducts.Where(n => n.CategoryID.Equals(filterCategory.Id)).ToList();
+            }
+            int pageSize = 4;
+            allProducts = PaginatedList<Products>.Create(allProducts.AsQueryable(), pageNumber ?? 1, pageSize);
+
+            return allProducts;
+        }
         public Products GetProductByID(int productID) => _context.Products.FirstOrDefault(n => n.Id == productID);
         public Products UpdateProductByID(int productID, ProductVM product)
         {

@@ -20,9 +20,9 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-all-products")]
-        public IActionResult GetAllProducts()
+        public IActionResult GetAllProducts(string sortBy, string filterString, int pageNumber)
         {
-            var allproducts = _productsService.GetAllProduct();
+            var allproducts = _productsService.GetAllProduct(sortBy, filterString, pageNumber);
             return Ok(allproducts);
         }
 

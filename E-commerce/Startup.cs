@@ -96,6 +96,7 @@ namespace E_commerce
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_commerce v1"));
+                AppDBInitializer.Seed(app);
             }
 
             app.UseHttpsRedirection();
@@ -111,7 +112,7 @@ namespace E_commerce
                 endpoints.MapControllers();
             });
 
-            AppDBInitializer.Seed(app);
+            
         }
     }
 }

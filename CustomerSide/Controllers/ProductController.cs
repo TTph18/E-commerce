@@ -23,16 +23,16 @@ namespace CustomerSide.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<ProductsViewModel> reservationList = new List<ProductsViewModel>();
+            List<ProductsViewModel> productList = new List<ProductsViewModel>();
             using (var httpClient = new HttpClient())
             {
                 using (var response = await httpClient.GetAsync("https://localhost:44377/api/Products/get-all-products"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    reservationList = JsonConvert.DeserializeObject<List<ProductsViewModel>>(apiResponse);
+                    productList = JsonConvert.DeserializeObject<List<ProductsViewModel>>(apiResponse);
                 }
             }
-            return View(reservationList);
+            return View(productList);
         }
     }
 }

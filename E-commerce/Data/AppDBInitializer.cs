@@ -21,7 +21,6 @@ namespace E_commerce.Data
                     context.Categories.AddRange(new Categories()
                     {
                         Name = "Rose"
-
                     },
                     new Categories()
                     {
@@ -45,9 +44,25 @@ namespace E_commerce.Data
                     },
                     new Products()
                     {
-                        Name = "Gaze Lily",
+                        Name = "Glaze Lily",
                         Description = "Second flower",
                         Price = 2.001f,
+                        PictureUrl = "https....",
+                        CategoryID = 2
+                    },
+                    new Products()
+                    {
+                        Name = "Tulip",
+                        Description = "Lily flower",
+                        Price = 2.081f,
+                        PictureUrl = "https....",
+                        CategoryID = 2
+                    },
+                    new Products()
+                    {
+                        Name = "Erythronium",
+                        Description = "Lily flower",
+                        Price = 2.881f,
                         PictureUrl = "https....",
                         CategoryID = 2
                     },
@@ -56,6 +71,14 @@ namespace E_commerce.Data
                         Name = "Crimson Rose",
                         Description = "Second flower",
                         Price = 2.001f,
+                        PictureUrl = "https....",
+                        CategoryID = 1
+                    },
+                    new Products()
+                    {
+                        Name = "Acaena Rose",
+                        Description = "Rose flower",
+                        Price = 3.001f,
                         PictureUrl = "https....",
                         CategoryID = 1
                     });
