@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace E_commerce
@@ -34,9 +35,10 @@ namespace E_commerce
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions
+                .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(ConnectionString));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddDatabaseDeveloperPageExceptionFilter();            
 
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<AppDBContext>();
@@ -96,9 +98,8 @@ namespace E_commerce
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_commerce v1"));
-                AppDBInitializer.Seed(app);
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -112,7 +113,7 @@ namespace E_commerce
                 endpoints.MapControllers();
             });
 
-            
+            AppDBInitializer.Seed(app);
         }
     }
 }

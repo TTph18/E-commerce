@@ -236,3 +236,11 @@ E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\CustomerSide.dll
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\ref\CustomerSide.dll
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\CustomerSide.pdb
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\CustomerSide.genruntimeconfig.cache
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\web.config
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

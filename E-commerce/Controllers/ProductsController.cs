@@ -22,8 +22,15 @@ namespace E_commerce.Controllers
         [HttpGet("get-all-products")]
         public IActionResult GetAllProducts(string sortBy, string filterString, int pageNumber)
         {
-            var allproducts = _productsService.GetAllProduct(sortBy, filterString, pageNumber);
-            return Ok(allproducts);
+            try
+            {
+                var allproducts = _productsService.GetAllProduct(sortBy, filterString, pageNumber);
+                return Ok(allproducts);
+            }
+            catch(Exception)
+            {
+                return BadRequest("Sorry we couldnt load products");
+            }
         }
 
         [HttpGet("get-product-by-id/{id}")]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace E_commerce.Data.Models
@@ -15,6 +16,7 @@ namespace E_commerce.Data.Models
         public int? Rate { get; set; }
         //Navigation Propeties
         public int? CategoryID { get; set; }
+        [JsonIgnore]
         public Categories? Category { get; set; }
     }
 }
