@@ -234,3 +234,5 @@ E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\E-commerce.RazorTargetAssemblyInfo.cs
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\E-commerce.Views.pdb
+E:\SU\Web\E-commerce\E-commerce\bin\Debug\net5.0\E-commerce.Shared.dll
+E:\SU\Web\E-commerce\E-commerce\bin\Debug\net5.0\E-commerce.Shared.pdb

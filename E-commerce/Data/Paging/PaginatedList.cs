@@ -15,6 +15,13 @@ namespace E_commerce.Data.Paging
             TotalPage = (int)Math.Ceiling(count / (double)pageSize);
             this.AddRange(items);
         }
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return PageIndex > 1;
+            }
+        }
         public bool HasNextPage
         {
             get

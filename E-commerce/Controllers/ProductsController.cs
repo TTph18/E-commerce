@@ -39,6 +39,12 @@ namespace E_commerce.Controllers
             var product = _productsService.GetProductByID(id);
             return Ok(product);
         }
+        [HttpGet("get-product-by-category/{id}")]
+        public IActionResult GetProductByCategory(int id)
+        {
+            var product = _productsService.GetProductByID(id);
+            return Ok(product);
+        }
 
         [HttpPost("add-product")]
         public IActionResult AddProductWithCategory([FromBody]ProductVM product)

@@ -2297,6 +2297,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "E-commerce.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/E-commerce.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/E-commerce.Shared.dll": {}
+        }
       }
     }
   },
@@ -7874,10 +7884,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "E-commerce.Shared/1.0.0": {
+      "type": "project",
+      "path": "../E-commerce.Shared/E-commerce.Shared.csproj",
+      "msbuildProject": "../E-commerce.Shared/E-commerce.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "E-commerce.Shared >= 1.0.0",
       "IdentityServer4 >= 4.1.2",
       "IdentityServer4.AspNetIdentity >= 4.1.2",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 5.0.11",
@@ -7921,7 +7937,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\SU\\Web\\E-commerce\\E-commerce.Shared\\E-commerce.Shared.csproj": {
+              "projectPath": "E:\\SU\\Web\\E-commerce\\E-commerce.Shared\\E-commerce.Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

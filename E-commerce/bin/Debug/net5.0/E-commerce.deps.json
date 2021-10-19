@@ -33,6 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "E-commerce/1.0.0": {
         "dependencies": {
+          "E-commerce.Shared": "1.0.0",
           "IdentityServer4": "4.1.2",
           "IdentityServer4.AspNetIdentity": "4.1.2",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "5.0.11",
@@ -2071,6 +2072,14 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
+        }
+      },
+      "E-commerce.Shared/1.0.0": {
+        "runtime": {
+          "E-commerce.Shared.dll": {}
+        },
+        "compile": {
+          "E-commerce.Shared.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -4751,6 +4760,11 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "E-commerce.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
       "type": "referenceassembly",

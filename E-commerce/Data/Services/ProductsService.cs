@@ -14,12 +14,14 @@ namespace E_commerce.Data.Services
         public ProductsService(AppDBContext context)
         {
             _context = context;
+            
         }
         public void AddProductWithCategory(ProductVM product)
         {
             var _product = new Products()
             {
                 Name = product.Name,
+                Rate = product.Rate,
                 Description = product.Description,
                 Price = product.Price,
                 PictureUrl = product.PictureUrl,
@@ -30,8 +32,10 @@ namespace E_commerce.Data.Services
         }
         public List<Products> GetAllProduct(string sortBy, string filterString, int? pageNumber) 
         { 
-            var allProducts = _context.Products.OrderBy(n=> n.Name).ToList();
+            var allProducts = _context.Products.ToList();
             var allCategories = _context.Categories.ToList();
+
+            //Sorting
             if (!string.IsNullOrEmpty(sortBy))
             {
                 switch(sortBy)
@@ -39,16 +43,24 @@ namespace E_commerce.Data.Services
                     case "name_desc":
                         allProducts = allProducts.OrderByDescending(n => n.Name).ToList();
                         break;
+                    case "name_asc":
+                        allProducts = allProducts.OrderBy(n => n.Name).ToList();
+                        break;
                     default:
                         break;
-
                 }
             }
+
+            //Filtering
             if (!string.IsNullOrEmpty(filterString))
             {
-                var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, 
+                    StringComparison.CurrentCultureIgnoreCase)).
+                    FirstOrDefault();
                 allProducts = allProducts.Where(n => n.CategoryID.Equals(filterCategory.Id)).ToList();
             }
+
+            //Paging
             int pageSize = 4;
             allProducts = PaginatedList<Products>.Create(allProducts.AsQueryable(), pageNumber ?? 1, pageSize);
 
