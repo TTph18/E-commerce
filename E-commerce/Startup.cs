@@ -1,7 +1,12 @@
 using E_commerce.Data;
 using E_commerce.Data.Models;
 using E_commerce.Data.Services;
+using E_commerce.IdentityServer;
+using E_commerce.Security.Authorization.Handlers;
+using E_commerce.Security.Authorization.Requirements;
+using E_commerce.Shared;
 using IdentityServer4.Stores;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,16 +43,50 @@ namespace E_commerce
             services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions
                 .ReferenceHandler = ReferenceHandler.Preserve);
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(ConnectionString));
+            
             services.AddDatabaseDeveloperPageExceptionFilter();            
 
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<AppDBContext>();
 
-            services.AddIdentityServer()
-                .AddAspNetIdentity<User>()
-                .AddInMemoryCaching()
-                .AddClientStore<InMemoryClientStore>()
-                .AddResourceStore<InMemoryResourcesStore>();                
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/CustomAuthentication/Login";
+            });
+
+            services.AddIdentityServer
+                (options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                    options.EmitStaticAudienceClaim = true;
+                })
+               .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+               .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+               .AddInMemoryClients(IdentityServerConfig.Clients)
+               .AddAspNetIdentity<User>()
+               .AddProfileService<CustomProfileService>()
+               .AddDeveloperSigningCredential();
+
+            services.AddAuthentication()
+                .AddLocalApi("Bearer", option =>
+                {
+                    option.ExpectedScope = "rookieshop.api";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(SecurityConstants.BEARER_POLICY, policy =>
+                {
+                    policy.AddAuthenticationSchemes("Bearer");
+                    policy.RequireAuthenticatedUser();
+                });
+
+                options.AddPolicy(SecurityConstants.ADMIN_ROLE_POLICY, policy =>
+                    policy.Requirements.Add(new AdminRoleRequirement()));
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -81,12 +120,49 @@ namespace E_commerce
                 options.SlidingExpiration = true;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddTransient<ProductsService>();
             services.AddTransient<CategoriesService>();
-    
+
+            services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
+
+            services.AddControllersWithViews();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_commerce", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_commerce API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            TokenUrl = new Uri("/connect/token", UriKind.Relative),
+                            AuthorizationUrl = new Uri("/connect/authorize", UriKind.Relative),
+                            Scopes = new Dictionary<string, string> { { "eshop.api", "E_commerce API" } }
+                        },
+                    },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new List<string>{ "eshop.api" }
+                    }
+                });
             });
         }
 
@@ -101,6 +177,10 @@ namespace E_commerce
             }
             
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowOrigins");
+
+            app.UseIdentityServer();
 
             app.UseRouting();
 
