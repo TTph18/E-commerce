@@ -12,4 +12,61 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\bootstrap.css" />
+    <None Include="wwwroot\css\flexslider.css" />
+    <None Include="wwwroot\css\form.css" />
+    <None Include="wwwroot\css\jquery-ui.css" />
+    <None Include="wwwroot\css\memenu.css" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\fonts\JosefinSans-Bold.ttf" />
+    <None Include="wwwroot\fonts\JosefinSans-Light.ttf" />
+    <None Include="wwwroot\fonts\JosefinSans-Regular.ttf" />
+    <None Include="wwwroot\images\a1.jpg" />
+    <None Include="wwwroot\images\a2.jpg" />
+    <None Include="wwwroot\images\a3.jpg" />
+    <None Include="wwwroot\images\a4.jpg" />
+    <None Include="wwwroot\images\b-arrow.png" />
+    <None Include="wwwroot\images\b1.jpg" />
+    <None Include="wwwroot\images\b2.jpg" />
+    <None Include="wwwroot\images\b3.jpg" />
+    <None Include="wwwroot\images\b4.jpg" />
+    <None Include="wwwroot\images\ban2.jpg" />
+    <None Include="wwwroot\images\brid.jpg" />
+    <None Include="wwwroot\images\close.png" />
+    <None Include="wwwroot\images\do.png" />
+    <None Include="wwwroot\images\f1.jpg" />
+    <None Include="wwwroot\images\f2.jpg" />
+    <None Include="wwwroot\images\f3.jpg" />
+    <None Include="wwwroot\images\f4.jpg" />
+    <None Include="wwwroot\images\find.png" />
+    <None Include="wwwroot\images\img-sprite-left-right.png" />
+    <None Include="wwwroot\images\p1.jpg" />
+    <None Include="wwwroot\images\p10.jpg" />
+    <None Include="wwwroot\images\p11.jpg" />
+    <None Include="wwwroot\images\p12.jpg" />
+    <None Include="wwwroot\images\p2.jpg" />
+    <None Include="wwwroot\images\p3.jpg" />
+    <None Include="wwwroot\images\p4.jpg" />
+    <None Include="wwwroot\images\p5.jpg" />
+    <None Include="wwwroot\images\p6.jpg" />
+    <None Include="wwwroot\images\p7.jpg" />
+    <None Include="wwwroot\images\p8.jpg" />
+    <None Include="wwwroot\images\p9.jpg" />
+    <None Include="wwwroot\images\s11.jpeg" />
+    <None Include="wwwroot\images\s22.jpeg" />
+    <None Include="wwwroot\images\s33.jpeg" />
+    <None Include="wwwroot\images\s44.jpeg" />
+    <None Include="wwwroot\images\search1.png" />
+    <None Include="wwwroot\images\social2.png" />
+    <None Include="wwwroot\images\star.png" />
+    <None Include="wwwroot\js\jquery-ui.min.js" />
+    <None Include="wwwroot\js\jquery.flexisel.js" />
+    <None Include="wwwroot\js\jquery.flexslider.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
+    <None Include="wwwroot\js\memenu.js" />
+    <None Include="wwwroot\js\simpleCart.min.js" />
+  </ItemGroup>
+
 </Project>
