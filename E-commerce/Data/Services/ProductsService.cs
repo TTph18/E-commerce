@@ -21,7 +21,7 @@ namespace E_commerce.Data.Services
             _context = context;
             _fileStorageService = fileStorageService;
         }
-        public async Task AddProductWithCategoryAsync(ProductCreateRequest request)
+        public async Task<Products> AddProductWithCategoryAsync(ProductCreateRequest request)
         {
             var _product = new Products()
             {
@@ -38,7 +38,7 @@ namespace E_commerce.Data.Services
             }
             _context.Products.Add(_product);
             await _context.SaveChangesAsync();
-            _context.SaveChanges();
+            return _product;
         }
         public List<Products> GetAllProduct(string sortBy, string filterString, int? pageNumber) 
         { 

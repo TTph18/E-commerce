@@ -2,6 +2,8 @@
 using E_commerce.Data.Services;
 using E_commerce.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,9 @@ using System.Threading.Tasks;
 namespace E_commerce.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigins")]
     [ApiController]
+    [Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         public ProductsService _productsService;
@@ -39,6 +43,7 @@ namespace E_commerce.Controllers
             var product = _productsService.GetProductByID(id);
             return Ok(product);
         }
+
         [HttpGet("get-product-by-category/{id}")]
         public IActionResult GetProductByCategory(int id)
         {
@@ -47,16 +52,20 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-product")]
-        public IActionResult AddProductWithCategory([FromForm]ProductCreateRequest request)
+        public async Task<IActionResult> AddProductWithCategory([FromForm]ProductCreateRequest request)
         {
-            _productsService.AddProductWithCategoryAsync(request);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var newproduct = await _productsService.AddProductWithCategoryAsync(request);
+            return Ok(newproduct);
         }
 
         [HttpPut("update-product-by-id/{id}")]
-        public IActionResult UpdateProductByID([FromRoute]int id, [FromForm] ProductCreateRequest request)
+        public async Task<IActionResult> UpdateProductByID([FromRoute]int id, [FromForm] ProductCreateRequest request)
         {
-            var updateproduct = _productsService.UpdateProductByIDAsync(id, request);
+            var updateproduct = await _productsService.UpdateProductByIDAsync(id, request);
             return Ok(updateproduct);
         }
 
