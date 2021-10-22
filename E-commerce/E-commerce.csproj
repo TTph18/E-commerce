@@ -26,4 +26,8 @@
     <ProjectReference Include="..\E-commerce.Shared\E-commerce.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
 </Project>

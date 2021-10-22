@@ -47,16 +47,16 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-product")]
-        public IActionResult AddProductWithCategory([FromBody]ProductVM product)
+        public IActionResult AddProductWithCategory([FromForm]ProductCreateRequest request)
         {
-            _productsService.AddProductWithCategory(product);
+            _productsService.AddProductWithCategoryAsync(request);
             return Ok();
         }
 
         [HttpPut("update-product-by-id/{id}")]
-        public IActionResult UpdateProductByID(int id, [FromBody] ProductVM product)
+        public IActionResult UpdateProductByID([FromRoute]int id, [FromForm] ProductCreateRequest request)
         {
-            var updateproduct = _productsService.UpdateProductByID(id, product);
+            var updateproduct = _productsService.UpdateProductByIDAsync(id, request);
             return Ok(updateproduct);
         }
 

@@ -69,4 +69,9 @@
     <None Include="wwwroot\js\simpleCart.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewComponents\" />
+    <Folder Include="Views\Components\" />
+  </ItemGroup>
+
 </Project>

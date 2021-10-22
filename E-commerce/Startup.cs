@@ -1,6 +1,7 @@
 using E_commerce.Data;
 using E_commerce.Data.Models;
 using E_commerce.Data.Services;
+using E_commerce.Data.Services.FileStorage;
 using E_commerce.IdentityServer;
 using E_commerce.Security.Authorization.Handlers;
 using E_commerce.Security.Authorization.Requirements;
@@ -133,6 +134,8 @@ namespace E_commerce
 
             services.AddTransient<ProductsService>();
             services.AddTransient<CategoriesService>();
+            services.AddTransient<IFileStorageService, FileStorageService>();
+
 
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
 
