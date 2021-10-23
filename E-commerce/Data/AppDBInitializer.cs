@@ -39,6 +39,7 @@ namespace E_commerce.Data
                         Name = "Bonnie Marie",
                         Description = "First flower",
                         Price = 20.001f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 3
                     },
@@ -47,6 +48,7 @@ namespace E_commerce.Data
                         Name = "Glaze Lily",
                         Description = "Second flower",
                         Price = 2.001f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 2
                     },
@@ -55,6 +57,7 @@ namespace E_commerce.Data
                         Name = "Tulip",
                         Description = "Lily flower",
                         Price = 2.081f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 2
                     },
@@ -63,6 +66,7 @@ namespace E_commerce.Data
                         Name = "Erythronium",
                         Description = "Lily flower",
                         Price = 2.881f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 2
                     },
@@ -71,6 +75,7 @@ namespace E_commerce.Data
                         Name = "Crimson Rose",
                         Description = "Second flower",
                         Price = 2.001f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 1
                     },
@@ -79,6 +84,7 @@ namespace E_commerce.Data
                         Name = "Acaena Rose",
                         Description = "Rose flower",
                         Price = 3.001f,
+                        Rate = 0,
                         PictureUrl = "https....",
                         CategoryID = 1
                     });

@@ -7,32 +7,45 @@ using CustomerSide.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 using System.Net;
 
 namespace CustomerSide.Controllers
 {
     public class ProductController : Controller
     {
-        //Hosted web API REST Service base url
-        Uri Baseurl = new Uri( "http://localhost:44377/api"); 
         HttpClient client;
-        public ProductController()
+        private readonly IConfiguration _configuration;
+        public ProductController(IConfiguration configuration)
         {
             client = new HttpClient();
-            client.BaseAddress = Baseurl;
+            _configuration = configuration;
         }
         public async Task<IActionResult> Index()
         {
             List<ProductsViewModel> productList = new List<ProductsViewModel>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44377/api/Products/get-all-products"))
+                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/Products/get-all-products"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     productList = JsonConvert.DeserializeObject<List<ProductsViewModel>>(apiResponse);
                 }
             }
             return View(productList);
+        }
+        public async Task<IActionResult> Detail(int id)
+        {
+            ProductsViewModel product = new ProductsViewModel();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/Products/get-product-by-id/"+ id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    product = JsonConvert.DeserializeObject<ProductsViewModel>(apiResponse);
+                }
+            }
+            return View(product);
         }
     }
 }

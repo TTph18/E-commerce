@@ -17,6 +17,6 @@ namespace E_commerce.Data.Models
         //Navigation Propeties
         public int? CategoryID { get; set; }
         [JsonIgnore]
-        public Categories? Category { get; set; }
+        public Categories Category { get; set; }
     }
 }

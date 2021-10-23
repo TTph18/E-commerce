@@ -183,6 +183,8 @@ namespace E_commerce
 
             app.UseCors("AllowOrigins");
 
+            app.UseStaticFiles();
+
             app.UseIdentityServer();
 
             app.UseRouting();

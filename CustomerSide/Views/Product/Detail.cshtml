@@ -1,0 +1,85 @@
+﻿@model CustomerSide.Models.ProductsViewModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/css/form.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <div class="single-sec">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Products</li>
+            </ol>
+            <!-- start content -->
+            <div class="col-md-9 det">
+                <div class="single_left">
+                    <img src="@(Configuration["BaseAddress"] + "/image/" + Model.PictureUrl)"/>
+                </div>
+                <div class="single-right">
+                    <h3>@Html.DisplayFor(model => model.Name)</h3>
+                    <div class="id"><h4>ID: SB2379</h4></div>
+                    <form action="" class="sky-form">
+                        <fieldset>
+                            <section>
+                                <div class="rating">
+                                    <input type="radio" name="stars-rating" id="stars-rating-5">
+                                    <label for="stars-rating-5"><i class="icon-star"></i></label>
+                                    <input type="radio" name="stars-rating" id="stars-rating-4">
+                                    <label for="stars-rating-4"><i class="icon-star"></i></label>
+                                    <input type="radio" name="stars-rating" id="stars-rating-3">
+                                    <label for="stars-rating-3"><i class="icon-star"></i></label>
+                                    <input type="radio" name="stars-rating" id="stars-rating-2">
+                                    <label for="stars-rating-2"><i class="icon-star"></i></label>
+                                    <input type="radio" name="stars-rating" id="stars-rating-1">
+                                    <label for="stars-rating-1"><i class="icon-star"></i></label>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                    <div class="cost">
+                        <div class="prdt-cost">
+                            <ul>
+                                <li>Sellling Price:</li>
+                                <li class="active">$@Html.DisplayFor(model => model.Price)</li>
+                                <a href="#">BUY NOW</a>
+                            </ul>
+                        </div>
+                        <div class="check">
+                            <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Enter pin code for delivery & availability</p>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Pin code">
+                                </div>
+                                <button type="submit" class="btn btn-default">Verify</button>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    @*<div class="item-list">
+                        <ul>
+                            <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
+                        </ul>
+                    </div>*@
+                    <div class="single-bottom1">
+                        <h6>Details</h6>
+                        <p class="prod-desc">@Html.DisplayFor(model => model.Description)</p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!---->
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -602,6 +602,9 @@ li.nbs-flexisel-item a:hover{
 .single-bottom {
   padding-left: 10px;
 }
+.single-left img{
+	width: 100%;
+}
 .single-bottom a p{
 	padding-bottom:1px;
 }

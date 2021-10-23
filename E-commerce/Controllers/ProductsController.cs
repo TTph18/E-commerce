@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 namespace E_commerce.Controllers
 {
     [Route("api/[controller]")]
-    [EnableCors("AllowOrigins")]
     [ApiController]
-    [Authorize("Bearer")]
+    
     public class ProductsController : ControllerBase
     {
         public ProductsService _productsService;

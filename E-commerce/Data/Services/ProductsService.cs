@@ -33,8 +33,7 @@ namespace E_commerce.Data.Services
             };
             if (request.ImageFile != null)
             {
-                var _image = await _fileStorageService.SaveFileAsync(request.ImageFile);
-                _product.PictureUrl = _fileStorageService.GetFileUrl(_image);
+                _product.PictureUrl = await _fileStorageService.SaveFileAsync(request.ImageFile);
             }
             _context.Products.Add(_product);
             await _context.SaveChangesAsync();
@@ -43,36 +42,36 @@ namespace E_commerce.Data.Services
         public List<Products> GetAllProduct(string sortBy, string filterString, int? pageNumber) 
         { 
             var allProducts = _context.Products.ToList();
-            var allCategories = _context.Categories.ToList();
+            //var allCategories = _context.Categories.ToList();
 
             //Sorting
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-                switch(sortBy)
-                {
-                    case "name_desc":
-                        allProducts = allProducts.OrderByDescending(n => n.Name).ToList();
-                        break;
-                    case "name_asc":
-                        allProducts = allProducts.OrderBy(n => n.Name).ToList();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //if (!string.IsNullOrEmpty(sortBy))
+            //{
+            //    switch(sortBy)
+            //    {
+            //        case "name_desc":
+            //            allProducts = allProducts.OrderByDescending(n => n.Name).ToList();
+            //            break;
+            //        case "name_asc":
+            //            allProducts = allProducts.OrderBy(n => n.Name).ToList();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
 
-            //Filtering
-            if (!string.IsNullOrEmpty(filterString))
-            {
-                var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, 
-                    StringComparison.CurrentCultureIgnoreCase)).
-                    FirstOrDefault();
-                allProducts = allProducts.Where(n => n.CategoryID.Equals(filterCategory.Id)).ToList();
-            }
+            ////Filtering
+            //if (!string.IsNullOrEmpty(filterString))
+            //{
+            //    var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, 
+            //        StringComparison.CurrentCultureIgnoreCase)).
+            //        FirstOrDefault();
+            //    allProducts = allProducts.Where(n => n.CategoryID.Equals(filterCategory.Id)).ToList();
+            //}
 
             //Paging
-            int pageSize = 4;
-            allProducts = PaginatedList<Products>.Create(allProducts.AsQueryable(), pageNumber ?? 1, pageSize);
+            //int pageSize = 4;
+            //allProducts = PaginatedList<Products>.Create(allProducts.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return allProducts;
         }
@@ -90,8 +89,7 @@ namespace E_commerce.Data.Services
             }
             if (request.ImageFile != null)
             {
-                var _image = await _fileStorageService.SaveFileAsync(request.ImageFile);
-                _product.PictureUrl = _fileStorageService.GetFileUrl(_image);
+                _product.PictureUrl = await _fileStorageService.SaveFileAsync(request.ImageFile);
             }
             _context.Products.Update(_product);
             await _context.SaveChangesAsync();
