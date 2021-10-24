@@ -22,7 +22,7 @@
             <!-- start content -->
             <div class="col-md-9 det">
                 <div class="single_left">
-                    <img src="@(Configuration["BaseAddress"] + "/image/" + Model.PictureUrl)"/>
+                    <img style="width: 100%" src="@(Configuration["BaseAddress"] + "/image/" + Model.PictureUrl)"/>
                 </div>
                 <div class="single-right">
                     <h3>@Html.DisplayFor(model => model.Name)</h3>

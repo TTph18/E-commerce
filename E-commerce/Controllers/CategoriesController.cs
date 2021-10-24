@@ -32,6 +32,13 @@ namespace E_commerce.Controllers
             return Ok(category);
         }
 
+        [HttpGet("get-category-products/{id}")]
+        public IActionResult GetCategoryData(int id)
+        {
+            var categorydata = _categoriesService.GetCategoryData(id);
+            return Ok(categorydata);
+        }
+
         [HttpPost("add-category")]
         public IActionResult AddCategory([FromBody] CategoryVM category)
         {

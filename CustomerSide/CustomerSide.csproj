@@ -70,8 +70,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewComponents\" />
-    <Folder Include="Views\Components\" />
+    <ProjectReference Include="..\E-commerce.Shared\E-commerce.Shared.csproj" />
   </ItemGroup>
 
 </Project>

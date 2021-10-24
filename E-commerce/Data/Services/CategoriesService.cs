@@ -25,6 +25,24 @@ namespace E_commerce.Data.Services
         }
         public List<Categories> GetAllCategory() => _context.Categories.ToList();
         public Categories GetCategoryByID(int categoryID) => _context.Categories.FirstOrDefault(n => n.Id == categoryID);
+        public CategoryProductVM GetCategoryData(int categoryId)
+        {
+            var _categoryData = _context.Categories.Where(n => n.Id == categoryId)
+                .Select(n => new CategoryProductVM()
+                {
+                    Name = n.Name,
+                    Products = n.Product.Select(n => new ProductVM()
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        Price = n.Price,
+                        PictureUrl = n.PictureUrl,
+                        Rate = n.Rate
+                    }).ToList()
+                }).FirstOrDefault();
+
+            return _categoryData;
+        }
         public Categories UpdateCategoryByID(int categoryID, CategoryVM category)
         {
             var _category = _context.Categories.FirstOrDefault(n => n.Id == categoryID);

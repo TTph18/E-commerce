@@ -246,3 +246,5 @@ E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Token
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\appsettings.Production.json
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Product\Detail.cshtml.g.cs
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.pdb

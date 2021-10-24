@@ -8,6 +8,5 @@ namespace E_commerce.Data.ViewModels
     public class CategoryVM
     {
         public string Name { get; set; }
-        public List<ProductVM>? Product { get; set; }
     }
 }

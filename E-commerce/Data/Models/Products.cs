@@ -13,7 +13,7 @@ namespace E_commerce.Data.Models
         public string Description { get; set; }
         public float Price { get; set; }
         public string PictureUrl { get; set; }
-        public int? Rate { get; set; }
+        public int Rate { get; set; }
         //Navigation Propeties
         public int? CategoryID { get; set; }
         [JsonIgnore]

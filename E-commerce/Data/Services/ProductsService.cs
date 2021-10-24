@@ -76,6 +76,7 @@ namespace E_commerce.Data.Services
             return allProducts;
         }
         public Products GetProductByID(int productID) => _context.Products.FirstOrDefault(n => n.Id == productID);
+       
         public async Task<Products> UpdateProductByIDAsync(int productID, ProductCreateRequest request)
         {
             var _product = _context.Products.FirstOrDefault(n => n.Id == productID);

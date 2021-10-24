@@ -43,13 +43,6 @@ namespace E_commerce.Controllers
             return Ok(product);
         }
 
-        [HttpGet("get-product-by-category/{id}")]
-        public IActionResult GetProductByCategory(int id)
-        {
-            var product = _productsService.GetProductByID(id);
-            return Ok(product);
-        }
-
         [HttpPost("add-product")]
         public async Task<IActionResult> AddProductWithCategory([FromForm]ProductCreateRequest request)
         {
