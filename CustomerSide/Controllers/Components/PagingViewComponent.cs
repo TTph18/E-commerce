@@ -1,5 +1,6 @@
 ﻿using CustomerSide.Models;
 using E_commerce.Shared;
+using E_commerce.Shared.Paging;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

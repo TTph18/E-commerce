@@ -73,4 +73,8 @@
     <ProjectReference Include="..\E-commerce.Shared\E-commerce.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
+  </ItemGroup>
+
 </Project>
