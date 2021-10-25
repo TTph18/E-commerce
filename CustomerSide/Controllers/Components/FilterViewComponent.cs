@@ -37,18 +37,5 @@ namespace CustomerSide.Controllers.Components
             }
             return categoryList;
         }
-        public async Task<List<ProductsViewModel>> GetCategoryProductsAsync(int categoryID)
-        {
-            List<ProductsViewModel> productList = new List<ProductsViewModel>();
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/Categories/get-category-products/"+categoryID))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    productList = JsonConvert.DeserializeObject<List<ProductsViewModel>>(apiResponse);
-                }
-            }
-            return productList;
-        }
     }
 }

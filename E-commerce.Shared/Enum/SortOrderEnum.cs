@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_commerce.Shared.Paging
+namespace E_commerce.Shared.Enum
 {
-    public class PagingResult<T> : PagingResultBase
+    public enum SortOrderEnum
     {
-        public List<T> Items { set; get; }
+        Accsending = 0,
+        Decsending = 1,
     }
 }

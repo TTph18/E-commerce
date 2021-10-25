@@ -13,7 +13,7 @@
         <div class="single-bottom">
             @foreach (var item in Model)
             {
-                <a href="#"><p>@Html.DisplayFor(modelItem => item.Name)</p></a>
+                <a href="@Url.Action("Detail","Category",new { id = item.Id })"><p>@Html.DisplayFor(modelItem => item.Name)</p></a>
             }
         </div>
     </div>

@@ -248,5 +248,5 @@ E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\appsettings.Production.json
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Product\Detail.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.dll
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.pdb
-E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\Components\Paging\Default.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\Components\Filter\Default.cshtml.g.cs
+E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Category\Detail.cshtml.g.cs
