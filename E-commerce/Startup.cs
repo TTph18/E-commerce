@@ -6,24 +6,18 @@ using E_commerce.IdentityServer;
 using E_commerce.Security.Authorization.Handlers;
 using E_commerce.Security.Authorization.Requirements;
 using E_commerce.Shared;
-using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace E_commerce
 {
@@ -135,7 +129,7 @@ namespace E_commerce
             services.AddTransient<ProductsService>();
             services.AddTransient<CategoriesService>();
             services.AddTransient<IFileStorageService, FileStorageService>();
-
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
 

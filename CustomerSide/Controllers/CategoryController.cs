@@ -22,12 +22,12 @@ namespace CustomerSide.Controllers
             client = new HttpClient();
             _configuration = configuration;
         }
-        public async Task<IActionResult> Detail(int categoryID)
+        public async Task<IActionResult> Detail(int id)
         {
             CategoryProductVM categoryData = new CategoryProductVM();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/Categories/get-category-products/" + categoryID))
+                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/Categories/get-category-products/" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     categoryData = JsonConvert.DeserializeObject<CategoryProductVM>(apiResponse);

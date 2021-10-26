@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using E_commerce.Shared.DTO.Paging;
+using E_commerce.Shared.DTO.Product;
+using System.Threading;
 
 namespace E_commerce.Controllers
 {
@@ -23,11 +26,13 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-all-products")]
-        public IActionResult GetAllProducts(string sortBy, string filterString, int pageNumber)
+         public async Task<ActionResult<PagingResponseDTO<ProductDTO>>> GetAllProductsAsync(
+            [FromQuery]ProductCriteriaDTO productCriteriaDto,
+            CancellationToken cancellationToken)
         {
             try
             {
-                var allproducts = _productsService.GetAllProduct(sortBy, filterString, pageNumber);
+                var allproducts = await _productsService.GetProducts(productCriteriaDto, cancellationToken);
                 return Ok(allproducts);
             }
             catch(Exception)

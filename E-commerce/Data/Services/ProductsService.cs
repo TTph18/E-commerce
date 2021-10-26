@@ -1,14 +1,17 @@
 ﻿using E_commerce.Data.ViewModels;
 using E_commerce.Data.Models;
+using E_commerce.Shared.DTO.Product;
+using E_commerce.Shared.DTO.Paging;
+using E_commerce.Data.Services.FileStorage;
+using E_commerce.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using E_commerce.Data.Paging;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http.Headers;
-using System.IO;
-using E_commerce.Data.Services.FileStorage;
+using System.Threading;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using E_commerce.Shared.ViewModels;
 
 namespace E_commerce.Data.Services
 {
@@ -16,10 +19,13 @@ namespace E_commerce.Data.Services
     {
         private AppDBContext _context;
         private readonly IFileStorageService _fileStorageService;
-        public ProductsService(AppDBContext context, IFileStorageService fileStorageService)
+        private readonly IMapper _mapper;
+
+        public ProductsService(AppDBContext context, IFileStorageService fileStorageService, IMapper mapper)
         {
             _context = context;
             _fileStorageService = fileStorageService;
+            _mapper = mapper;
         }
         public async Task<Products> AddProductWithCategoryAsync(ProductCreateRequest request)
         {
@@ -39,43 +45,46 @@ namespace E_commerce.Data.Services
             await _context.SaveChangesAsync();
             return _product;
         }
-        public List<Products> GetAllProduct(string sortBy, string filterString, int? pageNumber) 
-        { 
-            var allProducts = _context.Products.ToList();
-            //var allCategories = _context.Categories.ToList();
+        public async Task<PagingResponseDTO<ProductDTO>> GetProducts(
+            ProductCriteriaDTO productCriteriaDto, CancellationToken cancellationToken) 
+        {
+            var productQuery = _context
+                                    .Products
+                                    .AsQueryable();
 
-            //Sorting
-            //if (!string.IsNullOrEmpty(sortBy))
-            //{
-            //    switch(sortBy)
-            //    {
-            //        case "name_desc":
-            //            allProducts = allProducts.OrderByDescending(n => n.Name).ToList();
-            //            break;
-            //        case "name_asc":
-            //            allProducts = allProducts.OrderBy(n => n.Name).ToList();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
+            productQuery = ProductFilter(productQuery, productCriteriaDto);
 
-            ////Filtering
-            //if (!string.IsNullOrEmpty(filterString))
-            //{
-            //    var filterCategory = allCategories.Where(n => n.Name.Contains(filterString, 
-            //        StringComparison.CurrentCultureIgnoreCase)).
-            //        FirstOrDefault();
-            //    allProducts = allProducts.Where(n => n.CategoryID.Equals(filterCategory.Id)).ToList();
-            //}
+            var pageProducts = await productQuery
+                                        .AsNoTracking()
+                                        .PaginateAsync(productCriteriaDto, cancellationToken);
 
-            //Paging
-            //int pageSize = 4;
-            //allProducts = PaginatedList<Products>.Create(allProducts.AsQueryable(), pageNumber ?? 1, pageSize);
-
-            return allProducts;
+            var productDto = _mapper.Map<IEnumerable<ProductDTO>>(pageProducts.Items);
+            return new PagingResponseDTO<ProductDTO>
+            {
+                CurrentPage = pageProducts.CurrentPage,
+                TotalPages = pageProducts.TotalPages,
+                TotalItems = pageProducts.TotalItems,
+                Search = productCriteriaDto.Search,
+                SortColumn = productCriteriaDto.SortColumn,
+                SortOrder = productCriteriaDto.SortOrder,
+                Limit = productCriteriaDto.Limit,
+                Items = productDto
+            };
         }
-        public Products GetProductByID(int productID) => _context.Products.FirstOrDefault(n => n.Id == productID);
+        public ProductVM GetProductByID(int productID) 
+        { 
+            var product = _context.Products.FirstOrDefault(n => n.Id == productID);
+            var productViewModel = new ProductVM
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                PictureUrl = product.PictureUrl,
+                Rate = product.Rate,
+            };
+            return productViewModel;
+        } 
        
         public async Task<Products> UpdateProductByIDAsync(int productID, ProductCreateRequest request)
         {
@@ -105,6 +114,18 @@ namespace E_commerce.Data.Services
                 _context.SaveChanges();
             }
             return _product;
+        }
+        private IQueryable<Products> ProductFilter(
+            IQueryable<Products> productQuery,
+            ProductCriteriaDTO productCriteriaDto)
+        {
+            if (!String.IsNullOrEmpty(productCriteriaDto.Search))
+            {
+                productQuery = productQuery.Where(b =>
+                    b.Name.Contains(productCriteriaDto.Search, 
+                    StringComparison.CurrentCultureIgnoreCase));
+            }
+            return productQuery;
         }
     }
 }

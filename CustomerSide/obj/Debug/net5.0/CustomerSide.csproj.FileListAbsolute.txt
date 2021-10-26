@@ -222,7 +222,6 @@ E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\CustomerSide.TagHelpers.outpu
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\CustomerSide.RazorCoreGenerate.cache
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
-E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Product\Index.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -245,8 +244,11 @@ E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Proto
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\appsettings.Production.json
-E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Product\Detail.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.dll
 E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\E-commerce.Shared.pdb
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Shared\Components\Filter\Default.cshtml.g.cs
 E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Views\Category\Detail.cshtml.g.cs
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\AutoMapper.dll
+E:\SU\Web\E-commerce\CustomerSide\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Pages\Products\Details.cshtml.g.cs
+E:\SU\Web\E-commerce\CustomerSide\obj\Debug\net5.0\Razor\Pages\Products\Index.cshtml.g.cs

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_commerce.Shared.DTO.Paging
 {
-    public class PagingReponseDTO<T> : BaseQueryCriteriaDTO
+    public class PagingResponseDTO<T> : BaseQueryCriteriaDTO
     {
         public int CurrentPage { get; set; }
 

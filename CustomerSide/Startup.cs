@@ -1,6 +1,8 @@
+using CustomerSide.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -52,8 +54,13 @@ namespace CustomerSide
                         RoleClaimType = "role"
                     };
                 });
-
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.AreaViewLocationFormats.Add("/Views/Shared/Components/Filter/{0}.cshtml");
+            });
+            services.AddTransient<IProductServices, ProductServices>();
             services.AddHttpContextAccessor();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddControllersWithViews();
@@ -84,6 +91,7 @@ namespace CustomerSide
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

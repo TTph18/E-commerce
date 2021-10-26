@@ -1,8 +1,10 @@
-﻿@model E_commerce.Shared.ViewModels.ProductVM
+﻿@page
+@model CustomerSide.Pages.Products.DetailsModel
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,10 +23,10 @@
             <!-- start content -->
             <div class="col-md-9 det">
                 <div class="single_left">
-                    <img style="width: 100%" src="@(Configuration["BaseAddress"] + "/image/" + Model.PictureUrl)"/>
+                    <img style="width: 100%" src="@(Configuration["BaseAddress"]+ "/image/" + Model.Product.PictureUrl)" />
                 </div>
                 <div class="single-right">
-                    <h3>@Html.DisplayFor(model => model.Name)</h3>
+                    <h3>@Html.DisplayFor(model => model.Product.Name)</h3>
                     <div class="id"><h4>ID: SB2379</h4></div>
                     <form action="" class="sky-form">
                         <fieldset>
@@ -49,7 +51,7 @@
                         <div class="prdt-cost">
                             <ul>
                                 <li>Sellling Price:</li>
-                                <li class="active">$@Html.DisplayFor(model => model.Price)</li>
+                                <li class="active">$@Html.DisplayFor(model => model.Product.Price)</li>
                                 <a href="#">BUY NOW</a>
                             </ul>
                         </div>
@@ -65,13 +67,13 @@
                         <div class="clearfix"></div>
                     </div>
                     @*<div class="item-list">
-                        <ul>
-                            <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
-                        </ul>
-                    </div>*@
+                            <ul>
+                                <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
+                            </ul>
+                        </div>*@
                     <div class="single-bottom1">
                         <h6>Details</h6>
-                        <p class="prod-desc">@Html.DisplayFor(model => model.Description)</p>
+                        <p class="prod-desc">@Html.DisplayFor(model => model.Product.Description)</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
