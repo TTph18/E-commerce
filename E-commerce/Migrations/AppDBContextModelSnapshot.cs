@@ -34,6 +34,24 @@ namespace E_commerce.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("E_commerce.Data.Models.ProductRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductRatings");
+                });
+
             modelBuilder.Entity("E_commerce.Data.Models.Products", b =>
                 {
                     b.Property<int>("Id")
@@ -56,7 +74,7 @@ namespace E_commerce.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("Rate")
+                    b.Property<int>("Rate")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
