@@ -128,6 +128,7 @@ namespace E_commerce
 
             services.AddTransient<ProductsService>();
             services.AddTransient<CategoriesService>();
+            services.AddTransient<RatingService>();
             services.AddTransient<IFileStorageService, FileStorageService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

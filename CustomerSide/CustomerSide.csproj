@@ -80,7 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\Rating\" />
     <Folder Include="Views\Shared\Components\Paging\" />
   </ItemGroup>
 

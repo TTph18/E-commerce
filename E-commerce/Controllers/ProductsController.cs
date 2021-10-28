@@ -16,7 +16,6 @@ namespace E_commerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
     public class ProductsController : ControllerBase
     {
         public ProductsService _productsService;

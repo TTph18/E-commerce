@@ -105,6 +105,26 @@ namespace E_commerce.Data.Services
             await _context.SaveChangesAsync();
             return _product;
         }
+        public async Task UpdateRatingByIDAsync(int productID)
+        {
+            //Update Product
+            int totalRate = 0;
+            int avgRate = 0;
+            var _productRating = _context.ProductRatings.Where(n => n.ProductID == productID).ToList();
+            if (_productRating != null)
+            {
+                foreach (var item in _productRating)
+                {
+                    totalRate += item.Rating;
+                }
+                avgRate = totalRate / _productRating.Count();
+            }
+            var _product = _context.Products.FirstOrDefault(n => n.Id == productID);
+            _product.Rate = avgRate;
+            _context.Attach(_product);
+            _context.Entry(_product).Property(r => r.Rate).IsModified = true;
+            await _context.SaveChangesAsync();
+        }
         public Products DeleteProductByID(int productID)
         {
             var _product = _context.Products.FirstOrDefault(n => n.Id == productID);

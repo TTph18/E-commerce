@@ -67,16 +67,33 @@
                         <div class="clearfix"></div>
                     </div>
                     @*<div class="item-list">
-                            <ul>
-                                <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
-                            </ul>
-                        </div>*@
-                    <div class="single-bottom1">
-                        <h6>Details</h6>
-                        <p class="prod-desc">@Html.DisplayFor(model => model.Product.Description)</p>
-                    </div>
+                <ul>
+                    <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
+                </ul>
+            </div>*@
+                <div class="single-bottom1">
+                    <h6>Details</h6>
+                    <p class="prod-desc">@Html.DisplayFor(model => model.Product.Description)</p>
+                </div>
                 </div>
                 <div class="clearfix"></div>
+                <div class="sofaset-info">
+                    <h4>Product reviews</h4>
+                    @await Component.InvokeAsync("Rating", new { id = Model.Product.Id })
+                <form method="post">
+                    <div class="form-group">
+                        <label for="Rating" class="col-sm-2 control-label">Rating</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="Rating">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Register</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
                 <!---->
             </div>
             <div class="clearfix"></div>

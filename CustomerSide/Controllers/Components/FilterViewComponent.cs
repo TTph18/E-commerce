@@ -12,11 +12,9 @@ namespace CustomerSide.Controllers.Components
 {
     public class FilterViewComponent : ViewComponent
     {
-        HttpClient client;
         private readonly IConfiguration _configuration;
         public FilterViewComponent(IConfiguration configuration)
         {
-            client = new HttpClient();
             _configuration = configuration;
         }
         public async Task<IViewComponentResult> InvokeAsync()

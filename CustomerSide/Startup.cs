@@ -59,6 +59,7 @@ namespace CustomerSide
                 options.AreaViewLocationFormats.Add("/Views/Shared/Components/Filter/{0}.cshtml");
             });
             services.AddTransient<IProductServices, ProductServices>();
+            services.AddTransient<IProductRatingServices, ProductRatingServices>();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddRazorPages();

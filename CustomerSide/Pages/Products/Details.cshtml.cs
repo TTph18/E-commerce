@@ -13,16 +13,21 @@ namespace CustomerSide.Pages.Products
     public class DetailsModel : PageModel
     {
         private readonly IProductServices _productService;
+        private readonly IProductRatingServices _productRatingServices;
+
         private readonly IMapper _mapper;
-        public DetailsModel(IProductServices productService,
+        public DetailsModel(IProductServices productService, IProductRatingServices productRatingServices,
             IMapper mapper)
         {
             _productService = productService;
+            _productRatingServices = productRatingServices;
             _mapper = mapper;
         }
 
         [BindProperty]
         public ProductVM Product { get; set; }
+        [BindProperty]
+        public ProductRatingVM ProductRating { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -33,5 +38,22 @@ namespace CustomerSide.Pages.Products
             }
             return Page();
         }
+        public async Task<IActionResult> OnPostAsync(int id)
+        {
+            if (!ModelState.IsValid || id < 0)
+            {
+                return NotFound();
+            }
+            ProductRating = new ProductRatingVM();
+            ProductRating.ProductID = id;
+            ProductRating.Rating = Convert.ToInt32(Request.Form["Rating"]);
+            ProductRatingVM rating = ProductRating;
+            if (await _productRatingServices.AddRatingByProductAsync(id, rating))
+            {
+                return RedirectToPage("./Index");
+            }    
+            return Page();
+        }
+
     }
 }

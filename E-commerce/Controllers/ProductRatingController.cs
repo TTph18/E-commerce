@@ -1,12 +1,11 @@
-﻿using E_commerce.Data.Services;
+﻿ using E_commerce.Data.Services;
 using E_commerce.Data.ViewModels;
+using E_commerce.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace E_commerce.Controllers
 {
@@ -27,13 +26,9 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-rating")]
-        public  IActionResult AddRatingWithProduct([FromForm] RatingCreateRequest request)
+        public async Task<IActionResult> AddRatingWithProductAsync([FromBody] RatingCreateRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            _ratingService.AddRatingWithProduct(request);
+            await _ratingService.AddRatingWithProductAsync(request);
             return Ok();
         }
     }
