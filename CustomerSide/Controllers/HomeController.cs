@@ -33,5 +33,9 @@ namespace CustomerSide.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult GetRatingViewComponent(int id)
+        {
+            return ViewComponent("Rating", new { id = id });
+        }
     }
 }

@@ -540,43 +540,7 @@ li.nbs-flexisel-item a:hover{
 .viw a:hover, .shrt a:hover{
 	text-decoration:block;
 }
-/*--footer--*/
-.footer{
-	padding:3em 0 2em;
-}
-.ftr-grid h4 {
-  color: #646464;
-  display: block;
-  border-bottom: 1px solid #E5E5E5;
-  padding-bottom: 5px;
-  font-size: 1.3em;
-}
-.ftr-grid ul li{
-	display:block;
-}
-.ftr-grid ul li:nth-child(1) {
-  margin-top: 1em;
-}
-.ftr-grid ul li a {
-  color: #777;
-  padding: 3px 0;
-  display: block;
-  font-size:1em;
-}
-.ftr-grid ul li a:hover{
-	text-decoration:none;
-	color:#00a0dc;
-}
-.copywrite {
-	margin-bottom:2em;
-}
-.copywrite p {
-  color: #999;
-  font-size: 0.9em;
-}
-.copywrite p a{
-	color:#777;
-}
+
 /*--Products--*/
 .product-model-sec {
   margin: 4em 0 0 0;

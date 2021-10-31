@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<E_commerce.Shared.ViewModels.ProductRatingVM>
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+
+<head>
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" media="all" />
+</head>
 @foreach (var item in Model)
 {
     <hr />
     <div class="row">
         <div class="col-md-3">
-            <i>Tên product: @item.ProductID</i>
             <i>Rating product: @item.Rating</i>
             <br />
             @for (var i = 1; i <= item.Rating; i++)
@@ -16,7 +19,7 @@
             {
                 <span class="starFadeN"></span>
             }
-            <br />
+            <br/>
         </div>
     </div>
 }

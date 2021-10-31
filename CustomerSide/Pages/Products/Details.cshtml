@@ -12,6 +12,8 @@
 <html>
 <head>
     <link href="~/css/form.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" media="all" />
+
 </head>
 <body>
     <div class="single-sec">
@@ -32,16 +34,14 @@
                         <fieldset>
                             <section>
                                 <div class="rating">
-                                    <input type="radio" name="stars-rating" id="stars-rating-5">
-                                    <label for="stars-rating-5"><i class="icon-star"></i></label>
-                                    <input type="radio" name="stars-rating" id="stars-rating-4">
-                                    <label for="stars-rating-4"><i class="icon-star"></i></label>
-                                    <input type="radio" name="stars-rating" id="stars-rating-3">
-                                    <label for="stars-rating-3"><i class="icon-star"></i></label>
-                                    <input type="radio" name="stars-rating" id="stars-rating-2">
-                                    <label for="stars-rating-2"><i class="icon-star"></i></label>
-                                    <input type="radio" name="stars-rating" id="stars-rating-1">
-                                    <label for="stars-rating-1"><i class="icon-star"></i></label>
+                                    @for (var i = 1; i <= Model.Product.Rate; i++)
+                                    {
+                                        <span class="starGlowN"></span>
+                                    }
+                                    @for (var i = (Model.Product.Rate + 1); i <= 5; i++)
+                                    {
+                                        <span class="starFadeN"></span>
+                                    }
                                     <div class="clearfix"></div>
                                 </div>
                             </section>
@@ -71,29 +71,29 @@
                     <li>Plant family: @Html.DisplayNameFor(model => model.Cate)</li>
                 </ul>
             </div>*@
-                <div class="single-bottom1">
-                    <h6>Details</h6>
-                    <p class="prod-desc">@Html.DisplayFor(model => model.Product.Description)</p>
-                </div>
+                    <div class="single-bottom1">
+                        <h6>Details</h6>
+                        <p class="prod-desc">@Html.DisplayFor(model => model.Product.Description)</p>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="sofaset-info">
                     <h4>Product reviews</h4>
-                    @await Component.InvokeAsync("Rating", new { id = Model.Product.Id })
-                <form method="post">
-                    <div class="form-group">
-                        <label for="Rating" class="col-sm-2 control-label">Rating</label>
-                        <div class="col-sm-10">
+                    <div id="RatingBox">@await Component.InvokeAsync("Rating", new { id = Model.Product.Id })</div>
+                </div>
+                <div class="product-table">
+                    <h3>Write Review</h3>
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="Rating" class="control-label">Rating</label>
                             <input type="number" class="form-control" name="Rating">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Register</button>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-default" id="submitButton">
                         </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
+                <div class="clearfix"></div>
                 <!---->
             </div>
             <div class="clearfix"></div>
@@ -101,3 +101,14 @@
     </div>
 </body>
 </html>
+<script>
+
+@*var container = $("#RatingBox"); 
+    var refreshComponent = function () {
+        $.get("/Home/GetRatingViewComponent", { @Model.Product.Id: $("#quoteID").val() }, function (data) { container.html(data); });
+};
+$(function () {
+    $("#submitButton").click(function(){
+window.setInterval(refreshComponent, 1000); });
+})
+</script>*@

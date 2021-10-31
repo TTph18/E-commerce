@@ -50,10 +50,9 @@ namespace CustomerSide.Pages.Products
             ProductRatingVM rating = ProductRating;
             if (await _productRatingServices.AddRatingByProductAsync(id, rating))
             {
-                return RedirectToPage("./Index");
+                return RedirectToPage("Details", new { id = id});
             }    
             return Page();
         }
-
     }
 }

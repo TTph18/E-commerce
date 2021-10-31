@@ -40,7 +40,7 @@ namespace CustomerSide.Pages.Products
                 SortOrder = sortOrder,
                 SortColumn = currentFilter,
                 Page = pageIndex ?? 1,
-                Limit = limit ?? 2,
+                Limit = limit ?? 10,
             };
             var pagedProducts = await _productServices.GetProductsAsync(productCriteriaDto);
             Products = _mapper.Map<PagingResponseVM<ProductVM>>(pagedProducts);

@@ -107,7 +107,6 @@ namespace E_commerce.Data.Services
         }
         public async Task UpdateRatingByIDAsync(int productID)
         {
-            //Update Product
             int totalRate = 0;
             int avgRate = 0;
             var _productRating = _context.ProductRatings.Where(n => n.ProductID == productID).ToList();
@@ -117,7 +116,7 @@ namespace E_commerce.Data.Services
                 {
                     totalRate += item.Rating;
                 }
-                avgRate = totalRate / _productRating.Count();
+                avgRate = (int) Math.Round((double)totalRate / _productRating.Count());
             }
             var _product = _context.Products.FirstOrDefault(n => n.Id == productID);
             _product.Rate = avgRate;
