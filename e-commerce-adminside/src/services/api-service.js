@@ -1,15 +1,18 @@
 import axios from 'axios';
 import EndPoints from '../constants/endpoints';
 
-let API_URL = "https://localhost:44377";
-export function callApi(endpoint, method = 'GET', body) {
+export function callApi(endpoint, method, body) {
     return axios({
+        url: process.env.REACT_APP_BACKEND_URL + endpoint,
         method,
-        url: `${API_URL}/${endpoint}`,
         data: body,
-    }).catch(e => {
-        console.log(e)
-    })
+        headers: {
+            'Content-Type' : 'text/plain'
+        },
+    }).catch((e) => {
+        console.log(e);
+        console.log('apiService here-', body);
+    });
 }
 
 export function GET_ALL_PRODUCTS() {

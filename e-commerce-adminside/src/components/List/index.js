@@ -46,12 +46,22 @@ const ListProduct = () => {
 
     const RawHTML = (description, className) =>
         <div className={className} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />
+        
 
-    useEffect(() => {
-        GET_ALL_PRODUCTS().then((response) => {
-            setProducts(response.data.items);
-        });
-    }, []);
+    /*useEffect(() => {
+        async function fetchDataAsync() {
+          let result = await getProductRequest(query);
+          setProducts(result.data);
+        }
+    
+        fetchDataAsync();
+      }, [query, products]);*/
+
+      useEffect(() => {
+        GET_ALL_PRODUCTS().then(item=>setProducts(item.data))
+         
+      }, [])
+    
 
     if (!products) return null;
     return (
