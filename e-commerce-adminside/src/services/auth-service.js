@@ -1,6 +1,6 @@
-import { UserManager } from "oidc-client";
+import { UserManager } from 'oidc-client';
 
-import { CallBackEndpoints, UrlBackEnd } from "../Constants/oidc-config";
+import { CallBackEndpoints, UrlBackEnd } from "../constants/oidc-config";
 
 const oidcSettings = {
   authority: UrlBackEnd,

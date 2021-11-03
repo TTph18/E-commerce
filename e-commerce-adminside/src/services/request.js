@@ -1,8 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { UrlBackEnd } from "../Constants/oidc-config";
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { UrlBackEnd } from "../constants/oidc-config";
 import { 
     REQUEST_ACCESS_TOKEN_STORAGE_KEY
- } from "../Constants/oidc-config";
+ } from "../constants/oidc-config";
 
 const config = {
     baseURL: UrlBackEnd
