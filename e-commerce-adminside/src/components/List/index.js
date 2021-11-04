@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +17,7 @@ import {
     DECSENDING,
     DEFAULT_PAGE_LIMIT,
 } from '../../constants/paging';
+import ProductTable from "./ProductTable";
 
 import { getProductRequest } from "../services/request"
 
@@ -37,71 +38,64 @@ const useStyles = makeStyles((theme) => ({
 const ListProduct = () => {
     const classes = useStyles();
 
-    const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState("");
+
     const [query, setQuery] = useState({
         page: 1,
         limit: DEFAULT_PAGE_LIMIT,
         sortOrder: DECSENDING,
     });
 
-    const RawHTML = (description, className) =>
-        <div className={className} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />
-        
-
-    /*useEffect(() => {
+    useEffect(() => {
         async function fetchDataAsync() {
           let result = await getProductRequest(query);
           setProducts(result.data);
         }
     
         fetchDataAsync();
-      }, [query, products]);*/
-
-      useEffect(() => {
-        GET_ALL_PRODUCTS().then(item=>setProducts(item.data))
-         
-      }, [])
+      }, [query, products]);
     
+      const fetchDataCallbackAsync = async () =>  {
+        let data = await getProductRequest(query);
+        console.log('fetchDataCallbackAsync');
+        console.log(data);
+      }
 
-    if (!products) return null;
+      const handlePage = (page) => {
+    setQuery({
+      ...query,
+      page,
+    });
+  };
+  const handleSort = (sortColumn) => {
+    const sortOrder = query.sortOrder === ACCSENDING ? DECSENDING : ACCSENDING;
+
+    setQuery({
+      ...query,
+      sortColumn,
+      sortOrder,
+    });
+  };
     return (
-        <div>
-            <Link to="/create" type="button" className="btn btn-success">
-                Create new Brand
+        <>
+            <div className="d-flex align-items-center ml-3">
+            <Link to="/brand/create" type="button" className="btn btn-danger">
+              Create new Brand
             </Link>
-            {/* <Button variant="success">Create</Button> */}
-            <TableContainer component={Paper}>
-                            <Table className={classes.table} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell align="center">Description</TableCell>
-                                        <TableCell align="center">Price</TableCell>
-                                        <TableCell align="center">Image</TableCell>
-                                        <TableCell align="center">Rate</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {products && products?.items?.map((row, index) => (
-                                        <TableRow key={row.Id}>
-                                            <TableCell component="th" scope="row">{row.name}</TableCell>
-                                            <TableCell align="left">{RawHTML(row.description, "description")}</TableCell>
-                                            <TableCell align="center">{row.price}$</TableCell>
-                                            <img src={`${Url}${row.pictureUrl}`} align="center" width="50" height="50" marginTop="100"></img>
-                                            <TableCell align="center">{row.rate}</TableCell>
-                                            <TableCell align="center">
-                                                <Link to={`/edit/product/${row.id}`} className={classes.removeLink}>
-                                                    <Button size="small" variant="contained" color="primary">Edit</Button></Link>
-                                            </TableCell>
-                                            <TableCell align="center">
-
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-        </div>
+            <Suspense fallback={<div>Loading..</div>}>
+                        <ProductTable
+                        products={products}
+                        handlePage={handlePage}
+                        handleSort={handleSort}
+                        sortState={{
+                          columnValue: query.sortColumn,
+                          orderBy: query.sortOrder,
+                        }}
+                        fetchData={fetchDataCallbackAsync}
+                        />
+            </Suspense>
+          </div>
+                        </>
     );
 };
 

@@ -46,14 +46,13 @@ export default function Home() {
                                     onClick={() => {
                                         setClose(true);
                                         setCheckDeleteProduct(false)
-                                    }}
-                                >
+                                    }}>
                                     <CloseIcon fontSize="inherit" />
                                 </IconButton>
                             }
                         >Detele successfuly</Alert>}
-                              <Suspense fallback={<div>Loading..</div>}>
-
+                        
+                        <Suspense fallback={<div>Loading..</div>}>
                         <ListProduct></ListProduct>
                         </Suspense>
                     </Paper>
