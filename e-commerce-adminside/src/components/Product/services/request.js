@@ -1,8 +1,8 @@
 import { AxiosResponse } from "axios";
 import qs from 'qs';
 
-import RequestService from '../../services/request';
-import EndPoints from '../../constants/endpoints';
+import RequestService from '../../../services/request';
+import EndPoints from '../../../constants/endpoints';
 
 export function createProductRequest(productForm) {
     const formData = new FormData();
@@ -28,7 +28,7 @@ export function updateProductRequest(productForm) {
         formData.append(key, productForm[key]);
     });
 
-    return RequestService.axios.put(EndPoints.productId(productForm.id ?? - 1), formData);
+    return RequestService.axios.put(EndPoints.updateProductByID(productForm.id ?? - 1), formData);
 }
 
 export function disableProductRequest(productId) {

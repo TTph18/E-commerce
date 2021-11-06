@@ -10,13 +10,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from 'react-router-dom'
-import Url from '../../services/url';
-import { GET_ALL_PRODUCTS, DELETE_PRODUCT_ID } from '../../services/api-service';
+import Url from '../../../services/url';
 import {
     ACCSENDING,
     DECSENDING,
     DEFAULT_PAGE_LIMIT,
-} from '../../constants/paging';
+} from '../../../constants/paging';
 import ProductTable from "./ProductTable";
 
 import { getProductRequest } from "../services/request"
@@ -62,9 +61,9 @@ const ListProduct = () => {
       }
 
       const handlePage = (page) => {
-    setQuery({
-      ...query,
-      page,
+        setQuery({
+        ...query,
+        page,
     });
   };
   const handleSort = (sortColumn) => {
@@ -77,25 +76,25 @@ const ListProduct = () => {
     });
   };
     return (
-        <>
-            <div className="d-flex align-items-center ml-3">
-            <Link to="/brand/create" type="button" className="btn btn-danger">
-              Create new Brand
+      <>
+        <div className="d-flex align-items-center ml-3">
+          <Link to="/brand/create" type="button" className="btn btn-danger">
+            Create new Brand
             </Link>
-            <Suspense fallback={<div>Loading..</div>}>
-                        <ProductTable
-                        products={products}
-                        handlePage={handlePage}
-                        handleSort={handleSort}
-                        sortState={{
-                          columnValue: query.sortColumn,
-                          orderBy: query.sortOrder,
-                        }}
-                        fetchData={fetchDataCallbackAsync}
-                        />
-            </Suspense>
-          </div>
-                        </>
+          <Suspense fallback={<div>Loading..</div>}>
+            <ProductTable
+              products={products}
+              handlePage={handlePage}
+              handleSort={handleSort}
+              sortState={{
+                columnValue: query.sortColumn,
+                orderBy: query.sortOrder,
+              }}
+              fetchData={fetchDataCallbackAsync}
+            />
+          </Suspense>
+        </div>
+      </>
     );
 };
 
