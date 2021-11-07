@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router";
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +14,9 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Link } from 'react-router-dom'
 import Url from '../../../services/url';
+import {
+    EDIT_PRODUCT_ID
+} from '../../../constants/pages';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,14 +40,26 @@ const ProductTable = ({
   fetchData,
 }) => {
     const classes = useStyles();
+    const history = useHistory();
     let list = [];
     if(products?.items != null)
     {
         const arr =  Object.values(products?.items);
         list = arr;
     }
-    const RawHTML = (description, className) =>
-    <div className={className} dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br />') }} />
+
+    
+    const handleEdit = (id) => {
+        const arr =  Object.values(products?.items);
+        const existProduct =arr[1].find(item => item.id === Number(id));
+        history.push(
+            EDIT_PRODUCT_ID(id),
+          {
+            existProduct: existProduct
+          }
+        );
+      };
+
      return (
          <>
              <TableContainer component={Paper}>
@@ -70,8 +86,8 @@ const ProductTable = ({
                                  <img src={`${Url}${row.pictureUrl}`} align="center" width="50" height="50" marginTop="100"></img>
                                  <TableCell align="center">{row.rate}</TableCell>
                                  <TableCell align="center">
-                                     <Link to={`/edit/product/${row.id}`} className={classes.removeLink}>
-                                         <Button size="small" variant="contained" color="primary">Edit</Button></Link>
+                                     {/*<Link to={`/edit/product/${row.id}`} className={classes.removeLink}>*/}
+                                         <Button size="small" variant="contained" color="primary" onClick={() => handleEdit(row.id)}>Edit</Button>
                                  </TableCell>
                                  <TableCell align="center">
                                  </TableCell>
