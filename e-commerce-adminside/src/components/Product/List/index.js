@@ -78,8 +78,8 @@ const ListProduct = () => {
     return (
       <>
         <div className="d-flex align-items-center ml-3">
-          <Link to="/brand/create" type="button" className="btn btn-danger">
-            Create new Brand
+          <Link to="/product/create" type="button" className="btn btn-danger">
+            Create new product
             </Link>
           <Suspense fallback={<div>Loading..</div>}>
             <ProductTable

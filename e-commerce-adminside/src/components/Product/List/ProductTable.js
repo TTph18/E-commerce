@@ -89,7 +89,7 @@ const ProductTable = ({
                                      {/*<Link to={`/edit/product/${row.id}`} className={classes.removeLink}>*/}
                                          <Button size="small" variant="contained" color="primary" onClick={() => handleEdit(row.id)}>Edit</Button>
                                  </TableCell>
-                                 <TableCell align="center">
+                                 <TableCell align="center"> 
                                  </TableCell>
                              </TableRow>
                          ))}

@@ -1,27 +1,35 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
+import React, { Component, Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MenuTop from './components/MenuTop';
 import Home from './components/Home';
 import Product from './components/Product/index';
-import EditProduct from './components/Product/Edit/index.js';
+import { PRODUCT, AUTH } from "./constants/pages";
 
-import { PRODUCT, EDIT_PRODUCT, AUTH } from "./constants/pages";
+
 export default class App extends Component {
   displayName = App.name;
   render() {
     return (
-       <React.Fragment>
+      <Router>
+        <div className="App"> 
         <CssBaseline />
         <MenuTop />
         <Container maxWidth="md">
-           <Route exact path='/' component={Home} />
-           <Route path='/home' component={Home} />
-           <Route path={PRODUCT} component={Product} />
-           <Route path={EDIT_PRODUCT} component={EditProduct} />
-        </Container>
-    </React.Fragment>
+          <Suspense fallback={<div>Loading..</div>}>
+            <Switch>
+              <Route exact path="/">
+                <Home/>
+              </Route>
+              <Route path={PRODUCT}>
+                <Product />
+              </Route>
+          </Switch>
+         </Suspense>
+         </Container>
+        </div>
+      </Router>
     );
   }
 }

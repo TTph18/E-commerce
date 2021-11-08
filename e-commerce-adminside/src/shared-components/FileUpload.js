@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes, useState, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
 import { useField } from 'formik';
 import { X } from 'react-feather';
 
@@ -22,11 +23,11 @@ const FileUpload = (props) => {
     }
 
     return (
-        <div className='mb-3 row'>
-            <label className="col-4 col-form-label d-flex">
+        <div>
+            <label >
                 {props.label}
             </label>
-            <div className="col-8">
+            <div>
                 <input  type="file" 
                         onChange={handleOnChange} 
                         formEncType='multipart/form-data' 

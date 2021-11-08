@@ -9,9 +9,15 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import Url from '../../services/url';
+import { PRODUCT, EDIT_PRODUCT, CREATE_PRODUCT } from '../../constants/pages';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+
 import { getProductRequest } from "./services/request"
 
 const ListProduct = lazy(() => import("./List"));
+const UpdateProduct = lazy(() => import("./Edit"));
+const CreateProduct = lazy(() => import("./Create"));
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,16 +39,28 @@ export default function Product() {
     const [close, setClose] = React.useState(false);
 
     return (
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <Suspense fallback={<div>Loading..</div>}>
-                        <ListProduct></ListProduct>
-                        </Suspense>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </div>
+        <Switch>
+            <Route exact path={PRODUCT}>
+                <div className={classes.root}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <Paper className={classes.paper}>
+                                <Suspense fallback={<div>Loading..</div>}>
+                                    <ListProduct></ListProduct>
+                                </Suspense>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </div>
+            </Route>
+            
+            <Route exact path={EDIT_PRODUCT}>
+                <UpdateProduct />
+            </Route>
+            <Route exact path={CREATE_PRODUCT}>
+                <CreateProduct />
+            </Route>
+        </Switch>
+        
     )
 }

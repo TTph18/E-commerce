@@ -1,16 +1,49 @@
 import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
-
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { PRODUCT } from '../../constants/pages';
 import FileUpload from '../../shared-components/FileUpload';
 import { createProductRequest, updateProductRequest } from "./services/request";
 import { getCategoryRequest } from "../Category/services/request";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      marginTop:20
+    },
+    paper: {
+      padding: theme.spacing(2),
+      margin: 'auto',
+      maxWidth: 600,
+    },
+    title:{
+      fontSize:30,
+      textAlign:'center'
+    },
+    link:{
+      padding:10,
+      display:'inline-block'
+    },
+    txtInput:{
+      width:'98%',
+      margin:'1%'
+    },
+    imgInput:{
+        margin:'100%',
+      },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+  }));
+  
 const initialFormValues = {
     name: '',
     type: '',
@@ -20,18 +53,24 @@ const initialFormValues = {
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Required'),
-    type: Yup.string().required('Required'),
     description: Yup.string().required('Required')
 });
 
 const ProductFormContainer = ({ initialProductForm = {
     ...initialFormValues
 } }) => {
+    const classes = useStyles();
+
     const [loading, setLoading] = useState(false);
 
     const isUpdate = initialProductForm.id ? true : false;
 
     const history = useHistory();
+
+    const [idProduct,setIdProduct] = useState(0);
+    const [title,setTitle] = useState(null)
+    const [body,setBody] = useState(null)
+    const [slug,setSlug] = useState(null)
 
     const [category, setCategory] = useState(0);
     const [categories,setCategories] = useState({});
@@ -41,12 +80,17 @@ const ProductFormContainer = ({ initialProductForm = {
       };
     
     useEffect(() => {
-        /* GET API CATEGORIES */
-        getCategoryRequest().then(item=>{
-          setCategories(item.data);
-          console.log(categories);
-        });
-         
+        async function fetchCategoryDataAsync() {
+            let list = [];
+            let result = await getCategoryRequest();
+            if (result.data != null) {
+                const arr = Object.values(result.data);
+                list = arr;
+            }
+            setCategories(list[1]);
+          }
+          fetchCategoryDataAsync();
+
       }, [])
     
 
@@ -74,6 +118,7 @@ const ProductFormContainer = ({ initialProductForm = {
         {
             handleResult(true, data.name);
         }
+        console.log('update');
     }
 
     const createProductAsync = async (form) => {  
@@ -86,79 +131,109 @@ const ProductFormContainer = ({ initialProductForm = {
     }
 
     return (
-        <Formik
-            initialValues={initialProductForm}
-            enableReinitialize
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-                setLoading(true);
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}>
+                        <Formik
+                            initialValues={initialProductForm}
+                            enableReinitialize
+                            validateOnChange={false}
+                            validateOnBlur={false}
+                            validationSchema={validationSchema}
+                            onSubmit={(values) => {
+                                setLoading(true);
 
-                setTimeout(() => {
-                    if (isUpdate) {
-                        updateProductAsync({ formValues: values });
-                    }
-                    else {
-                        createProductAsync({ formValues: values });
-                    }
+                                setTimeout(() => {
+                                    if (isUpdate) {
+                                        updateProductAsync({ formValues: values });
+                                    }
+                                    else {
+                                        createProductAsync({ formValues: values });
+                                    }
 
-                    setLoading(false);
-                }, 1000);
-            }}
-        >
-            {(actions) => (
-                <Form className='intro-y col-lg-6 col-12'>
-                    <TextField 
-                        name="name" 
-                        label="Name" 
-                        placeholder="input product name" 
-                        isrequired 
-                        disabled={isUpdate ? true : false} />
-                    <TextField 
-                        name="description" 
-                        label="Description" 
-                        placeholder="input product desccription" 
-                        isrequired />
-                    <TextField
-                        id="outlined-select-currency-native"
-                        name="idCategory"
-                        select
-                        value={category}
-                        onChange={handleChangeCategory}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        helperText="Please select your currency"
-                        variant="outlined"
-                    >
-                        <option value="0">Choose category</option>
-                        {categories.length > 0 && categories.map((option) => (
-                            <option key={option.idCategory} value={option.idCategory}>
-                                {option.name}
-                            </option>
-                        ))}
-                    </TextField>
+                                    setLoading(false);
+                                }, 1000);
+                            }}
+                        >
+                            {(actions) => (
+                                <Form className='intro-y col-lg-6 col-12'
+                                >
+                                    <Grid item xs={12} sm container>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                            className={classes.txtInput}
+                                                name="name"
+                                                label="Name"
+                                                value={initialProductForm.name}
+                                                placeholder="input product name"
+                                                isrequired
+                                                disabled={isUpdate ? true : false} />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                            className={classes.txtInput}
+                                                name="description"
+                                                label="Description"
+                                                placeholder="input product description"
+                                                isrequired />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                            className={classes.txtInput}
+                                                id="outlined-select-currency-native"
+                                                name="idCategory"
+                                                select
+                                                value={category}
+                                                onChange={handleChangeCategory}
+                                                SelectProps={{
+                                                    native: true,
+                                                }}
+                                                helperText="Please select category"
+                                                variant="outlined"
+                                            >
+                                                <option value="0">Choose category</option>
+                                                {categories.length > 0 && categories.map((option) => (
+                                                    <option key={option.idCategory} value={option.idCategory}>
+                                                        {option.name}
+                                                    </option>
+                                                ))}
+                                            </TextField>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <FileUpload
+                                                className={classes.imgInput}
+                                                name="imageFile"
+                                                label="Image"
+                                                image={actions.values.imagePath} />
+                                        </Grid>
+                                    </Grid>
+                                    <div className="d-flex">
+                                        <div className="ml-auto">
+                                            <Button 
+                                                type="submit" disabled={loading}
+                                                className={classes.submit}
+                                            >
+                                                Save {(loading) && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
+                                            </Button>
 
-                    <FileUpload 
-                        name="imageFile" 
-                        label="Image" 
-                        image={actions.values.imagePath} />
-                    
-                    <div className="d-flex">
-                        <div className="ml-auto">
-                            <button className="btn btn-danger"
-                                type="submit" disabled={loading}
-                            >
-                                Save {(loading) && <img src="/oval.svg" className='w-4 h-4 ml-2 inline-block' />}
-                            </button>
-
-                            <Link to={PRODUCT} className="btn btn-outline-secondary ml-2">
-                                Cancel
-                            </Link>
-                        </div>
-                    </div>
-                </Form>
-            )}
-        </Formik>
+                                            <Link to={PRODUCT} className="btn btn-outline-secondary ml-2">
+                                            <Button 
+                                                className={classes.submit}
+                                            >
+                                                </Button>
+                                                Cancel
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </div>
+        
     );
 }
 

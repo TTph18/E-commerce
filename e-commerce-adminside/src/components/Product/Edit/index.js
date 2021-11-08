@@ -12,8 +12,6 @@ import { Redirect, useParams, useLocation } from 'react-router';
 
 import ProductForm from '../ProductForm.js';
 
-/*Import api */
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
