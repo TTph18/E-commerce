@@ -1,75 +1,77 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React, { Component, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../index";
+import "./MenuTop.css";
+import AuthService from "../services/auth-service";
+import { USER_PROFILE_STORAGE_KEY } from "../constants/oidc-config";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        flexGrow: 1,
-    },
-    title: {
-        flexGrow: 1
-    },
-    linkTo: {
-        textDecoration: 'none',
-        color: '#000'
-    },
-    linkHome: {
-        textDecoration: 'none',
-        color: '#fff'
+export default class MenuTop extends Component {
+  state = {
+    username: undefined,
+  };
+
+  handleLogin = (e) => {
+    AuthService.loginAsync();
+  }
+
+  handleLogout = (e) => {
+    AuthService.logoutAsync();
+  }
+
+  componentDidMount() {
+    let userStorageValue = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+    let user = JSON.parse( userStorageValue );
+    if (user !== undefined)
+    {
+      this.setState({
+        username: user?.name
+      })
     }
-}));
-export default function MenuTop() {
-    const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const isMenuOpen = Boolean(anchorEl);
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen} y
 
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}><Link to="/product" className={classes.linkTo}>Product</Link></MenuItem>
-        </Menu>
-    );
+  }
+
+  render() {
     return (
-        <div className={classes.root}>
-            <AppBar position="static" color="primary">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        <Link to="/product" className={classes.linkHome}>Product</Link>
-                    </Typography>
-                    <Typography variant="h6" className={classes.title}>
-                        <Link to="/category" className={classes.linkHome}>Category</Link>
-                    </Typography>
-                    <IconButton edge="end" color="inherit" aria-label="MoreVert" aria-controls={menuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}>
-                        <MoreVertIcon />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            {renderMenu}
-        </div>
-    )
+      <UserContext.Consumer>
+        {(value) => (
+          <nav id="navbar">
+            <ul>
+              <Link to="/">
+                <li>Home</li>
+              </Link>
+              <Link to="/product">
+                <li>Product</li>
+              </Link>
+              <Link to="/category">
+                <li>Category</li>
+              </Link>
+            </ul>
+
+            <input type="text" onChange={(e) => this.props.onSearchKey(e)} />
+
+            <div className="nav-details">
+              <p className="nav-username"> {this.state.username} </p>
+            </div>
+
+            {(this.state.username === undefined) ? (
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={(e) => this.handleLogin(e)}>
+                Login
+              </button>
+            ): (
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={(e) => this.handleLogout(e)}>
+                Logout
+              </button>
+            )}
+
+          </nav>
+        )}
+      </UserContext.Consumer>
+    );
+  }
 }

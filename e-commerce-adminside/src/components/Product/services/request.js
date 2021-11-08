@@ -10,7 +10,7 @@ export function createProductRequest(productForm) {
         formData.append(key, productForm[key]);
     });
 
-    return RequestService.axios.post(EndPoints.product, formData);
+    return RequestService.axios.post(EndPoints.createProduct, formData);
 }
 
 export function getProductRequest(query) {
@@ -31,5 +31,5 @@ export function updateProductRequest(productForm) {
 }
 
 export function disableProductRequest(productId) {
-    return RequestService.axios.delete(EndPoints.productId(productId));
+    return RequestService.axios.delete(EndPoints.deleteProductByID(productId));
 }

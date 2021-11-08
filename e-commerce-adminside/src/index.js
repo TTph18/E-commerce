@@ -5,12 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+export const UserContext = React.createContext({ username: "Tuan" });
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
   <BrowserRouter>
+  <UserContext.Provider value={{ username: "T" }}>
     <App />
+    </UserContext.Provider>,
   </BrowserRouter>,
   rootElement);
 
