@@ -9,12 +9,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import Url from '../../services/url';
-import { PRODUCT, EDIT_PRODUCT, CREATE_PRODUCT } from '../../constants/pages';
+import { CATEGORY, EDIT_CATEGORY, CREATE_CATEGORY } from '../../constants/pages';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-const ListProduct = lazy(() => import("./List"));
-const UpdateProduct = lazy(() => import("./Edit"));
-const CreateProduct = lazy(() => import("./Create"));
+const ListCategory = lazy(() => import("./List"));
+const UpdateCategory = lazy(() => import("./Edit"));
+const CreateCategory = lazy(() => import("./Create"));
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,33 +29,31 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none'
     }
 }));
-export default function Product() {
+export default function Category() {
     const classes = useStyles();
 
-    const [checkDeleteProduct, setCheckDeleteProduct] = useState(false);
     const [close, setClose] = React.useState(false);
 
     return (
         <Switch>
-            <Route exact path={PRODUCT}>
+            <Route exact path={CATEGORY}>
                 <div className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <Suspense fallback={<div>Loading..</div>}>
-                                    <ListProduct></ListProduct>
+                                    <ListCategory></ListCategory>
                                 </Suspense>
                             </Paper>
                         </Grid>
                     </Grid>
                 </div>
             </Route>
-            
-            <Route exact path={EDIT_PRODUCT}>
-                <UpdateProduct />
+            <Route exact path={EDIT_CATEGORY}>
+                <UpdateCategory />
             </Route>
-            <Route exact path={CREATE_PRODUCT}>
-                <CreateProduct />
+            <Route exact path={CREATE_CATEGORY}>
+                <CreateCategory />
             </Route>
         </Switch>
         

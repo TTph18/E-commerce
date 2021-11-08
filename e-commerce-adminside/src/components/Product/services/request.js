@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import qs from 'qs';
 
 import RequestService from '../../../services/request';

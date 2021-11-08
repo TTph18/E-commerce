@@ -1,5 +1,4 @@
-import React, { InputHTMLAttributes, useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { InputHTMLAttributes, useState } from 'react';
 import { useField } from 'formik';
 import { X } from 'react-feather';
 

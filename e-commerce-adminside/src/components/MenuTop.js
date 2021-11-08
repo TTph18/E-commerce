@@ -59,6 +59,9 @@ export default function MenuTop() {
                     <Typography variant="h6" className={classes.title}>
                         <Link to="/product" className={classes.linkHome}>Product</Link>
                     </Typography>
+                    <Typography variant="h6" className={classes.title}>
+                        <Link to="/category" className={classes.linkHome}>Category</Link>
+                    </Typography>
                     <IconButton edge="end" color="inherit" aria-label="MoreVert" aria-controls={menuId}
                         aria-haspopup="true"
                         onClick={handleProfileMenuOpen}>

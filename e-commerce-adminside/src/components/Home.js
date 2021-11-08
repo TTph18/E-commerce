@@ -1,15 +1,7 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
-import { Redirect } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom'
-import Url from '../services/url';
-import { getProductRequest } from "./Product/services/request"
 const ListProduct = lazy(() => import("./Product/List"));
 
 const useStyles = makeStyles((theme) => ({

@@ -5,7 +5,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import MenuTop from './components/MenuTop';
 import Home from './components/Home';
 import Product from './components/Product/index';
-import { PRODUCT, AUTH } from "./constants/pages";
+import Category from './components/Category/index';
+import Auth from './components/Auth/Auth';
+
+import { PRODUCT, AUTH, CATEGORY } from "./constants/pages";
 
 
 export default class App extends Component {
@@ -24,6 +27,12 @@ export default class App extends Component {
               </Route>
               <Route path={PRODUCT}>
                 <Product />
+              </Route>
+              <Route path={CATEGORY}>
+                <Category />
+              </Route>
+              <Route path={AUTH}>
+                <Auth />
               </Route>
           </Switch>
          </Suspense>

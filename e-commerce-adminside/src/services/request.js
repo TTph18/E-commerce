@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { UrlBackEnd } from "../constants/oidc-config";
 import { 
     REQUEST_ACCESS_TOKEN_STORAGE_KEY
