@@ -51,8 +51,7 @@ const initialFormValues = {
 };
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required('Required'),
-    description: Yup.string().required('Required')
+    
 });
 
 const ProductFormContainer = ({ initialProductForm = {

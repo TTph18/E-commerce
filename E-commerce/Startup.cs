@@ -68,7 +68,7 @@ namespace E_commerce
             services.AddAuthentication()
                 .AddLocalApi("Bearer", option =>
                 {
-                    option.ExpectedScope = "rookieshop.api";
+                    option.ExpectedScope = "eshop.api";
                 });
 
             services.AddAuthorization(options =>
@@ -135,6 +135,8 @@ namespace E_commerce
             services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "E_commerce API", Version = "v1" });
@@ -170,10 +172,16 @@ namespace E_commerce
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_commerce v1"));
             }
-            
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
             app.UseHttpsRedirection();
 
             app.UseCors("AllowOrigins");
@@ -190,7 +198,10 @@ namespace E_commerce
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             //AppDBInitializer.Seed(app);

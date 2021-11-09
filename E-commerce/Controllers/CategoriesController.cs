@@ -1,5 +1,8 @@
 ﻿using E_commerce.Data.Services;
 using E_commerce.Data.ViewModels;
+using E_commerce.Shared;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +13,9 @@ using System.Threading.Tasks;
 namespace E_commerce.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigins")]
     [ApiController]
+    [Authorize("Bearer")]
     public class CategoriesController : ControllerBase
     {
         public CategoriesService _categoriesService;
@@ -19,6 +24,7 @@ namespace E_commerce.Controllers
             _categoriesService = categoriesService;
         }
         [HttpGet("get-all-categories")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetAllCategories()
         {
             var allcategories = _categoriesService.GetAllCategory();
@@ -26,6 +32,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-category-by-id/{id}")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetCategoryByID(int id)
         {
             var category = _categoriesService.GetCategoryByID(id);
@@ -33,6 +40,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-category-products/{id}")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetCategoryData(int id)
         {
             var categorydata = _categoriesService.GetCategoryData(id);
@@ -40,6 +48,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-category")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult AddCategory([FromBody] CategoryVM category)
         {
             _categoriesService.AddCategory(category);
@@ -47,6 +56,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPut("update-category-by-id/{id}")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult UpdateCategoryByID(int id, [FromBody] CategoryVM category)
         {
             var updatecategory = _categoriesService.UpdateCategoryByID(id, category);
@@ -54,6 +64,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpDelete("delete-category-by-id/{id}")]
+        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult DeleteCategoryByID(int id)
         {
             var deletecategory = _categoriesService.DeleteCategoryByID(id);
