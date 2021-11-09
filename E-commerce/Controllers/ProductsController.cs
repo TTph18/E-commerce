@@ -18,7 +18,6 @@ namespace E_commerce.Controllers
     [Route("api/[controller]")]
     [EnableCors("AllowOrigins")]
     [ApiController]
-    [Authorize("Bearer")]
     public class ProductsController : ControllerBase
     {
         public ProductsService _productsService;
@@ -28,7 +27,6 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-all-products")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<ActionResult<PagingResponseDTO<ProductDTO>>> GetAllProductsAsync(
             [FromQuery]ProductCriteriaDTO productCriteriaDto,
             CancellationToken cancellationToken)
@@ -45,7 +43,6 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-product-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetProductByID(int id)
         {
             var product = _productsService.GetProductByID(id);

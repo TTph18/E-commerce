@@ -42,6 +42,7 @@ namespace E_commerce
             services.AddDatabaseDeveloperPageExceptionFilter();            
 
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<AppDBContext>();
 
             services.ConfigureApplicationCookie(config =>
@@ -173,8 +174,7 @@ namespace E_commerce
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_commerce v1"));
+                
             }
             else
             {
@@ -184,18 +184,23 @@ namespace E_commerce
             }
             app.UseHttpsRedirection();
 
-            app.UseCors("AllowOrigins");
-
             app.UseStaticFiles();
 
             app.UseIdentityServer();
 
             app.UseRouting();
-
-            app.UseAuthentication();
-
+            app.UseCors("AllowOrigins");
             app.UseAuthorization();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.OAuthClientId("swagger");
+                c.OAuthClientSecret("secret");
+                c.OAuthUsePkce();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "E_commerce API v1");
+            }
+            );
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

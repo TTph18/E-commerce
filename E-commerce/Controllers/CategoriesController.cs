@@ -24,7 +24,6 @@ namespace E_commerce.Controllers
             _categoriesService = categoriesService;
         }
         [HttpGet("get-all-categories")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetAllCategories()
         {
             var allcategories = _categoriesService.GetAllCategory();
@@ -32,7 +31,6 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-category-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetCategoryByID(int id)
         {
             var category = _categoriesService.GetCategoryByID(id);
@@ -40,7 +38,6 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("get-category-products/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult GetCategoryData(int id)
         {
             var categorydata = _categoriesService.GetCategoryData(id);

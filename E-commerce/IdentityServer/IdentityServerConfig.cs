@@ -16,7 +16,7 @@ namespace E_commerce.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
              new ApiScope[]
              {
-                  new ApiScope("eshop.api", "E Commerce Shop API")
+                  new ApiScope("eshop.api", "E_commerce API")
              };
 
         public static IEnumerable<Client> Clients =>
