@@ -22,11 +22,11 @@ const FileUpload = (props) => {
     }
 
     return (
-        <div>
+        <div style={{ margin: '1%'}}>
             <label >
                 {props.label}
             </label>
-            <div>
+            <div style={{ marginTop: '1%'}}>
                 <input  type="file" 
                         onChange={handleOnChange} 
                         formEncType='multipart/form-data' 

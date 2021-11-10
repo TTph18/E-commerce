@@ -28,9 +28,7 @@ export default function Home() {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Suspense fallback={<div>Loading..</div>}>
-                        <ListProduct></ListProduct>
-                        </Suspense>
+                        
                     </Paper>
                 </Grid>
             </Grid>

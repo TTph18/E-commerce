@@ -11,9 +11,9 @@ namespace E_commerce.Data.Services
     public class RatingService : IRatingService
     {
         private AppDBContext _context;
-        public ProductsService _productsService;
+        public IProductsService _productsService;
 
-        public RatingService(AppDBContext context, ProductsService productsService)
+        public RatingService(AppDBContext context, IProductsService productsService)
         {
             _context = context;
             _productsService = productsService;

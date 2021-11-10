@@ -14,5 +14,6 @@ namespace E_commerce.Shared.DTO.Product
         public float Price { get; set; }
         public string PictureUrl { get; set; }
         public int Rate { get; set; }
+        public int? CategoryID { get; set; }
     }
 }

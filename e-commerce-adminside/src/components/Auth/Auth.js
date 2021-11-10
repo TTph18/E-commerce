@@ -34,7 +34,7 @@ const Auth = () => {
                 history.replace(HOME);
                 window.location.reload();
             });
-        
+           
         break;
 
       default:

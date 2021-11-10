@@ -50,15 +50,17 @@ const EditProduct = () => {
         setProduct({
           id: existProduct?.id,
           name: existProduct?.name,
+          price: existProduct?.price,
           description: existProduct?.description,
           pictureurl: existProduct?.pictureUrl,
+          categoryID: existProduct?.categoryID
         });
       }
     }, [existProduct]);
   
     return (
       <div className={classes.root}>
-        <div className='primaryColor text-title intro-x'>
+        <div className='primaryColor text-title intro-x' style={{ textAlign: 'center'}}>
           Update Product {existProduct?.name}
         </div>
   

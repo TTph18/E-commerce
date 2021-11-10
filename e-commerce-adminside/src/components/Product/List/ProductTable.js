@@ -48,7 +48,6 @@ const ProductTable = ({
         list = arr;
     }
 
-    
     const handleEdit = (id) => {
         const arr =  Object.values(products?.items);
         const existProduct =arr[1].find(item => item.id === Number(id));
@@ -75,6 +74,7 @@ const ProductTable = ({
                              <TableCell align="center">Price</TableCell>
                              <TableCell align="center">Image</TableCell>
                              <TableCell align="center">Rate</TableCell>
+                             <TableCell align="center">Category</TableCell>
                          </TableRow>
                      </TableHead>
                      <TableBody>
@@ -85,6 +85,7 @@ const ProductTable = ({
                                  <TableCell align="center">{row.price}$</TableCell>
                                  <img src={`${Url}${row.pictureUrl}`} align="center" width="50" height="50" marginTop="100"></img>
                                  <TableCell align="center">{row.rate}</TableCell>
+                                 <TableCell align="center">{row.categoryID}</TableCell>
                                  <TableCell align="center">
                                      {/*<Link to={`/edit/product/${row.id}`} className={classes.removeLink}>*/}
                                          <Button size="small" variant="contained" color="primary" onClick={() => handleEdit(row.id)}>Edit</Button>

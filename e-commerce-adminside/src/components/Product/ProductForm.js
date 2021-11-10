@@ -7,6 +7,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core//MenuItem';
+
 import Button from '@material-ui/core/Button';
 import { PRODUCT } from '../../constants/pages';
 import FileUpload from '../../shared-components/FileUpload';
@@ -35,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
       width:'98%',
       margin:'1%'
     },
+    txtDescription:{
+      width:'98%',
+      margin:'1%',
+      fontSize: '18px',
+    },
     imgInput:{
         margin:'100%',
       },
@@ -47,7 +54,9 @@ const initialFormValues = {
     name: '',
     type: '',
     description: '',
-    pictureUrl: undefined
+    price: '',
+    pictureUrl: undefined,
+    categoryID: ''
 };
 
 const validationSchema = Yup.object().shape({
@@ -65,12 +74,7 @@ const ProductFormContainer = ({ initialProductForm = {
 
     const history = useHistory();
 
-    const [idProduct,setIdProduct] = useState(0);
-    const [title,setTitle] = useState(null)
-    const [body,setBody] = useState(null)
-    const [slug,setSlug] = useState(null)
-
-    const [category, setCategory] = useState(0);
+    const [category, setCategory] = useState("");
     const [categories,setCategories] = useState({});
 
     const handleChangeCategory = (event) => {
@@ -79,17 +83,19 @@ const ProductFormContainer = ({ initialProductForm = {
     
     useEffect(() => {
         async function fetchCategoryDataAsync() {
-            let list = [];
             let result = await getCategoryRequest();
             if (result.data != null) {
                 const arr = Object.values(result.data);
-                list = arr;
-            }
-            setCategories(list[1]);
+                await setCategories(arr[1]);
+                if (categories.length > 0 && initialProductForm != null) {
+                    let sth = categories.find(element => element.id == initialProductForm.categoryID);
+                    setCategory(sth.name);
+                }
+            }            
           }
-          fetchCategoryDataAsync();
-
-      }, [])
+        fetchCategoryDataAsync();
+        
+      }, [categories, category])
     
 
     const handleResult = (result, message) => {
@@ -163,24 +169,41 @@ const ProductFormContainer = ({ initialProductForm = {
                                             className={classes.txtInput}
                                                 name="name"
                                                 label="Name"
-                                                value={initialProductForm.name}
+                                                onChange ={actions.handleChange('name')}
                                                 placeholder="input product name"
-                                                isrequired
-                                                disabled={isUpdate ? true : false} />
+                                                value={actions.values.name}
+                                                variant="outlined"
+                                                isrequired/>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
-                                            className={classes.txtInput}
+                                            multiline={true}
+                                                className={classes.txtDescription}
                                                 name="description"
                                                 label="Description"
+                                                onChange={actions.handleChange('description')}
+                                                value={actions.values.description}
                                                 placeholder="input product description"
+                                                variant="outlined"
+                                                isrequired />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                            type = "number"
+                                            className={classes.txtInput}
+                                                name="price"
+                                                label="Price"
+                                                value={actions.values.price}
+                                                onChange={actions.handleChange('price')}
+                                                placeholder="input product price"
+                                                variant="outlined"
                                                 isrequired />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField
                                             className={classes.txtInput}
-                                                id="outlined-select-currency-native"
                                                 name="idCategory"
+                                                label="Category"
                                                 select
                                                 value={category}
                                                 onChange={handleChangeCategory}
@@ -189,8 +212,8 @@ const ProductFormContainer = ({ initialProductForm = {
                                                 }}
                                                 helperText="Please select category"
                                                 variant="outlined"
+                                                InputLabelProps={{ shrink: true }}
                                             >
-                                                <option value="0">Choose category</option>
                                                 {categories.length > 0 && categories.map((option) => (
                                                     <option key={option.idCategory} value={option.idCategory}>
                                                         {option.name}

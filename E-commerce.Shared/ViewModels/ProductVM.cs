@@ -13,5 +13,6 @@ namespace E_commerce.Shared.ViewModels
         public int Rate { get; set; }
         public float Price { get; set; }
         public string PictureUrl { get; set; }
+        public int? CategoryID { get; set; }
     }
 }
