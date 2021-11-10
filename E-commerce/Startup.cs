@@ -127,9 +127,9 @@ namespace E_commerce
                     });
             });
 
-            services.AddTransient<ProductsService>();
-            services.AddTransient<CategoriesService>();
-            services.AddTransient<RatingService>();
+            services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IRatingService, RatingService>();
             services.AddTransient<IFileStorageService, FileStorageService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -15,7 +15,7 @@ using E_commerce.Shared.ViewModels;
 
 namespace E_commerce.Data.Services
 {
-    public class ProductsService
+    public class ProductsService : IProductsService
     {
         private AppDBContext _context;
         private readonly IFileStorageService _fileStorageService;

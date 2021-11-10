@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_commerce.Data.Services
 {
-    public class CategoriesService
+    public class CategoriesService : ICategoriesService
     {
         private AppDBContext _context;
         public CategoriesService(AppDBContext context)
@@ -25,7 +25,16 @@ namespace E_commerce.Data.Services
             _context.SaveChanges();
         }
         public List<Categories> GetAllCategory() => _context.Categories.ToList();
-        public Categories GetCategoryByID(int categoryID) => _context.Categories.FirstOrDefault(n => n.Id == categoryID);
+        public CategoryVM GetCategoryByID(int categoryID)
+        {
+            var _category = _context.Categories.FirstOrDefault(n => n.Id == categoryID);
+            var _categoryVM = new CategoryVM()
+            {
+                Id = _category.Id,
+                Name = _category.Name
+            };
+            return _categoryVM;
+        }
         public CategoryProductVM GetCategoryData(int categoryId)
         {
             var _categoryData = _context.Categories.Where(n => n.Id == categoryId)

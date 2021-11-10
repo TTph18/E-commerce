@@ -13,8 +13,8 @@ namespace E_commerce.Controllers
     [ApiController]
     public class ProductRatingController : ControllerBase
     {
-        public RatingService _ratingService;
-        public ProductRatingController(RatingService ratingService)
+        public IRatingService _ratingService;
+        public ProductRatingController(IRatingService ratingService)
         {
             _ratingService = ratingService;
         }

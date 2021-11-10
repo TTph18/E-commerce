@@ -15,11 +15,10 @@ namespace E_commerce.Controllers
     [Route("api/[controller]")]
     [EnableCors("AllowOrigins")]
     [ApiController]
-    [Authorize("Bearer")]
     public class CategoriesController : ControllerBase
     {
-        public CategoriesService _categoriesService;
-        public CategoriesController(CategoriesService categoriesService)
+        public ICategoriesService _categoriesService;
+        public CategoriesController(ICategoriesService categoriesService)
         {
             _categoriesService = categoriesService;
         }
@@ -45,7 +44,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-category")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult AddCategory([FromBody] CategoryVM category)
         {
             _categoriesService.AddCategory(category);
@@ -53,7 +52,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPut("update-category-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult UpdateCategoryByID(int id, [FromBody] CategoryVM category)
         {
             var updatecategory = _categoriesService.UpdateCategoryByID(id, category);
@@ -61,7 +60,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpDelete("delete-category-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult DeleteCategoryByID(int id)
         {
             var deletecategory = _categoriesService.DeleteCategoryByID(id);

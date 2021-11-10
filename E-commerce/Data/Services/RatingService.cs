@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace E_commerce.Data.Services
 {
-    public class RatingService
+    public class RatingService : IRatingService
     {
         private AppDBContext _context;
         public ProductsService _productsService;

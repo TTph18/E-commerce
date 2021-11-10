@@ -257,3 +257,5 @@ E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\Shared\_ScopeListIt
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\Shared\_ValidationSummary.cshtml.g.cs
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
+E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\CustomAuthentication\Login.cshtml.g.cs
+E:\SU\Web\E-commerce\E-commerce\obj\Debug\net5.0\Razor\Views\CustomAuthentication\Register.cshtml.g.cs

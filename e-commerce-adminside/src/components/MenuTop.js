@@ -16,6 +16,9 @@ export default class MenuTop extends Component {
 
   handleLogout = (e) => {
     AuthService.logoutAsync();
+    this.setState({
+        username: undefined
+      })
   }
 
   componentDidMount() {

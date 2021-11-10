@@ -20,8 +20,8 @@ namespace E_commerce.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        public ProductsService _productsService;
-        public ProductsController(ProductsService productsService)
+        public IProductsService _productsService;
+        public ProductsController(IProductsService productsService)
         {
             _productsService = productsService;
         }
@@ -50,7 +50,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("add-product")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<IActionResult> AddProductWithCategory([FromForm]ProductCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -62,7 +62,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpPut("update-product-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public async Task<IActionResult> UpdateProductByID([FromRoute]int id, [FromForm] ProductCreateRequest request)
         {
             var updateproduct = await _productsService.UpdateProductByIDAsync(id, request);
@@ -70,7 +70,7 @@ namespace E_commerce.Controllers
         }
 
         [HttpDelete("delete-product-by-id/{id}")]
-        [Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
+        //[Authorize(Policy = SecurityConstants.ADMIN_ROLE_POLICY)]
         public IActionResult DeleteProductByID(int id)
         {
             var deleteproduct = _productsService.DeleteProductByID(id);
