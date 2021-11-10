@@ -9,5 +9,6 @@ namespace CustomerSide.Services
     public interface IProductRatingServices
     {
         Task<bool> AddRatingByProductAsync(int productID, ProductRatingVM productRating);
+        Task<List<ProductRatingVM>> GetRatingsAsync(int id);
     }
 }

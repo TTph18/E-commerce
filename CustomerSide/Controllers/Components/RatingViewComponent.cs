@@ -8,33 +8,22 @@ using CustomerSide.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using CustomerSide.Services;
 
 namespace CustomerSide.Controllers.Components
 {
     public class RatingViewComponent : ViewComponent
     {
-        private readonly IConfiguration _configuration;
-        public RatingViewComponent(IConfiguration configuration)
+        private readonly IProductRatingServices _productRatingServices;
+        public RatingViewComponent(IProductRatingServices productRatingServices)
         {
-            _configuration = configuration;
+            _productRatingServices = productRatingServices;
         }
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var items = await GetRatingsAsync(id);
+            var items = await _productRatingServices.GetRatingsAsync(id);
             return View(items);
         }
-        public async Task<List<ProductRatingVM>> GetRatingsAsync(int id)
-        {
-            List<ProductRatingVM> ratingList = new List<ProductRatingVM>();
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/ProductRating/get-rating-by-product/"+ id))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    ratingList = JsonConvert.DeserializeObject<List<ProductRatingVM>>(apiResponse);
-                }
-            }
-            return ratingList;
-        }
+        
     }
 }

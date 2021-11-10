@@ -38,5 +38,18 @@ namespace CustomerSide.Services
                 return await Task.FromResult(true);
             }
         }
+        public async Task<List<ProductRatingVM>> GetRatingsAsync(int id)
+        {
+            List<ProductRatingVM> ratingList = new List<ProductRatingVM>();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(_configuration["BaseAddress"] + "/api/ProductRating/get-rating-by-product/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    ratingList = JsonConvert.DeserializeObject<List<ProductRatingVM>>(apiResponse);
+                }
+            }
+            return ratingList;
+        }
     }
 }
