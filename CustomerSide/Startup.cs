@@ -61,6 +61,7 @@ namespace CustomerSide
             services.AddTransient<IProductServices, ProductServices>();
             services.AddTransient<IProductRatingServices, ProductRatingServices>();
             services.AddHttpContextAccessor();
+            services.AddCustomHttpClient(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddRazorPages();
             services.AddControllersWithViews();
@@ -84,6 +85,7 @@ namespace CustomerSide
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
