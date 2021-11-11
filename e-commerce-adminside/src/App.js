@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Product from './components/Product/index';
 import Category from './components/Category/index';
 import Auth from './components/Auth/Auth';
+import Contact from './components/Contact/index';
 
 import { PRODUCT, AUTH, CATEGORY } from "./constants/pages";
 
@@ -30,6 +31,9 @@ export default class App extends Component {
               </Route>
               <Route path={CATEGORY}>
                 <Category />
+              </Route>
+              <Route exact path="/contact">
+              <Contact />
               </Route>
               <Route path={AUTH}>
                 <Auth />

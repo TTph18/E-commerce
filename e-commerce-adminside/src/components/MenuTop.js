@@ -48,6 +48,9 @@ export default class MenuTop extends Component {
               <Link to="/category">
                 <li>Category</li>
               </Link>
+              <Link to="/contact">
+                <li>Contact</li>
+              </Link>
             </ul>
 
             <input type="text" onChange={(e) => this.props.onSearchKey(e)} />

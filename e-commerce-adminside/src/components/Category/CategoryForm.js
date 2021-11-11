@@ -140,8 +140,10 @@ const CategoryFormContainer = ({ initialCategoryForm = {
                                             className={classes.txtInput}
                                                 name="name"
                                                 label="Name"
-                                                value={initialCategoryForm.name}
+                                                value={actions.values.name}
+                                                onChange={actions.handleChange('name')}
                                                 placeholder="input category name"
+                                                variant="outlined"
                                                 isrequired
                                                 />
                                         </Grid>

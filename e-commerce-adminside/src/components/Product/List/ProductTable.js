@@ -4,6 +4,9 @@ import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,8 +17,11 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import { Link } from 'react-router-dom'
 import Url from '../../../services/url';
+import { deleteProductRequest } from "../services/request"
+
 import {
-    EDIT_PRODUCT_ID
+    EDIT_PRODUCT_ID,
+    DELETE_PRODUCT_ID
 } from '../../../constants/pages';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +47,9 @@ const ProductTable = ({
 }) => {
     const classes = useStyles();
     const history = useHistory();
+    const [checkDeleteProduct,setCheckDeleteProduct] = useState(false);
+    const [close, setClose] = useState(false);
+
     let list = [];
     if(products?.items != null)
     {
@@ -59,14 +68,34 @@ const ProductTable = ({
         );
       };
 
+      const handleDelete = async (id)=>{
+          let isSuccess = await deleteProductRequest(id);
+          if (isSuccess) {
+              await setCheckDeleteProduct(true);
+          }
+      };
+    
+
      return (
          <>
-             <TableContainer component={Paper}>
-                 <Table className={classes.table} aria-label="simple table"
-                     page={{
-                         currentPage: products ?.currentPage,
-                         totalPage: products ?.totalPages,
-                     }}>
+         {checkDeleteProduct && <Alert
+                  action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setClose(true);
+                      setCheckDeleteProduct(false)
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+                >Detele successfuly</Alert>}
+
+            
+                
                      <TableHead>
                          <TableRow>
                              <TableCell>Name</TableCell>
@@ -91,28 +120,12 @@ const ProductTable = ({
                                          <Button size="small" variant="contained" color="primary" onClick={() => handleEdit(row.id)}>Edit</Button>
                                  </TableCell>
                                  <TableCell align="center"> 
+                                 <Button  size="small" variant="contained" color="secondary" onClick={()=>handleDelete(row.idProduct)}>Remove</Button>
                                  </TableCell>
                              </TableRow>
                          ))}
                      </TableBody>
-                     <TableFooter>
-                         <TableRow>
-                             <TablePagination
-                                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                 colSpan={3}
-                                 count={list?.length}
-                                 rowsPerPage={products?.limit}
-                                 SelectProps={{
-                                     inputProps: {
-                                         'aria-label': 'rows per page',
-                                     },
-                                     native: true,
-                                 }}
-                             />
-                         </TableRow>
-                     </TableFooter>
-                 </Table>
-             </TableContainer>
+                    
          </>
     );
 

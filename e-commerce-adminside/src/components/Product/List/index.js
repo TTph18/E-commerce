@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
 import { Link } from 'react-router-dom'
 import Url from '../../../services/url';
 import {
@@ -82,6 +84,8 @@ const ListProduct = () => {
             Create new product
             </Link>
           <Suspense fallback={<div>Loading..</div>}>
+          <Table className={classes.table} aria-label="simple table">
+             <TableContainer component={Paper}>
             <ProductTable
               products={products}
               handlePage={handlePage}
@@ -92,6 +96,27 @@ const ListProduct = () => {
               }}
               fetchData={fetchDataCallbackAsync}
             />
+            </TableContainer>
+            <TableFooter>
+                         <TableRow>
+                             <TablePagination
+                                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                 count={products?.totalItems}
+                                 rowsPerPage={products?.limit}
+                                 page={products?.currentPage - 1}
+                                 onPageChange={handlePage}
+                                 pageSize={products?.limit}
+
+                                 SelectProps={{
+                                     inputProps: {
+                                         'aria-label': 'rows per page',
+                                     },
+                                     native: true,
+                                 }}
+                             />
+                         </TableRow>
+                     </TableFooter>
+                     </Table>
           </Suspense>
         </div>
       </>

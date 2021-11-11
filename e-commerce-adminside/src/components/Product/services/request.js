@@ -30,6 +30,6 @@ export function updateProductRequest(productForm) {
     return RequestService.axios.put(EndPoints.updateProductByID(productForm.id ?? - 1), formData);
 }
 
-export function disableProductRequest(productId) {
+export function deleteProductRequest(productId) {
     return RequestService.axios.delete(EndPoints.deleteProductByID(productId));
 }

@@ -18,5 +18,11 @@ namespace E_commerce.Data
         public DbSet<Products> Products { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<ProductRating> ProductRatings { get; set; }
-    }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder); 
+			modelBuilder.Entity<User>()
+				.ToTable("AspNetUsers");
+		}
+	}
 }

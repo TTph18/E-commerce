@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UrlBackEnd } from "../constants/oidc-config";
+import { UrlBackEnd } from "./constants/oidc-config";
 
 //const endpoint = "https://jsonplaceholder.typicode.com";
 const endpoint = UrlBackEnd;
